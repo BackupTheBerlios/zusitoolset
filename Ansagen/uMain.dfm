@@ -159,6 +159,16 @@ object Main: TMain
     TabOrder = 10
     OnChange = cbDisplayChange
   end
+  object cbFolder: TComboBox
+    Left = 16
+    Top = 24
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    ItemHeight = 13
+    TabOrder = 11
+    OnChange = cbFolderChange
+  end
   object CliSocket: TWSocket
     LineMode = False
     LineLimit = 65536

@@ -45,6 +45,7 @@ type
     HkHotKey: THotKey;
     Button3: TButton;
     cbDisplay: TComboBox;
+    cbFolder: TComboBox;
     procedure CliSocketBufferReceived(Sender: TObject);
     procedure CliSocketDataAvailable(Sender: TObject; Error: Word);
     procedure CliSocketSessionClosed(Sender: TObject; Error: Word);
@@ -65,6 +66,7 @@ type
     procedure cXMLContent(Sender: TObject; Content: String);
     procedure cbStationsChange(Sender: TObject);
     procedure cbDisplayChange(Sender: TObject);
+    procedure cbFolderChange(Sender: TObject);
   private
     IniFile: TIniFile;
     Lines: TLines;
@@ -351,8 +353,13 @@ begin
   cbTracks.Clear;
   cbLines.Clear;
 
+//For I := 0 to Lines.Count -1 do
+//  cbLines.Items.Add(Lines[I].Name);
+
   For I := 0 to Lines.Count -1 do
-    cbLines.Items.Add(Lines[I].Name);
+    If ((Lines[I].Folder <> '') and
+      (cbFolder.Items.IndexOf(Lines[I].Folder) = (-1)))
+    then cbFolder.Items.Add(Lines[I].Folder);
 end;
 
 procedure TMain.FormCreate(Sender: TObject);
@@ -405,8 +412,8 @@ begin
     begin
       If Attributes.Name(I) = 'Name'
         then Line.Name := Attributes.Value(I);
-    //If Attributes.Name(I) = 'Directory'
-    //  then Line.Directory := Attributes.Value(I);
+      If Attributes.Name(I) = 'Folder'
+        then Line.Folder := Attributes.Value(I);
     end;
     Lines.Add(Line);
     Inc(Position.Line);
@@ -522,6 +529,22 @@ end;
 procedure TMain.cbDisplayChange(Sender: TObject);
 begin
   cbStations.ItemIndex := cbDisplay.ItemIndex;
+end;
+
+procedure TMain.cbFolderChange(Sender: TObject);
+var
+  I: Integer;
+begin
+  cbDisplay.Clear;
+  cbStations.Clear;
+  cbTracks.Clear;
+  cbLines.Clear;
+
+  For I := 0 to Lines.Count -1 do
+    If (Lines[I].Folder = cbFolder.Text)
+      then cbLines.Items.Add(Lines[I].Name);
+
+
 end;
 
 end.

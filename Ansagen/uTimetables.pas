@@ -54,6 +54,7 @@ type
   TLine = class
     Name: String;
     Directory: String;
+    Folder: String;
     Tracks: TTracks;
     constructor Create;
     destructor Destroy; override;
