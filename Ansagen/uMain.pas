@@ -487,7 +487,6 @@ Var
 begin
 
   cbStations.Clear;
-
   For I := 0 to Lines.Count -1 do
   begin
     If (Lines[I].Name = cbLines.Text) and (Lines[I].Folder = cbFolder.Text) then
@@ -495,12 +494,7 @@ begin
         cbStations.Items.Add(Lines[I].Tracks[cbTracks.ItemIndex].Stations[J].Name);
   end;
 
-
-//For I := 0 to Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations.Count -1 do
-//  cbStations.Items.Add(Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations[I].Name);
-
   cbDisplay.Clear;
-
   For I := 0 to Lines.Count -1 do
   begin
     If (Lines[I].Name = cbLines.Text) and (Lines[I].Folder = cbFolder.Text) then
@@ -508,20 +502,27 @@ begin
         cbDisplay.Items.Add(Lines[I].Tracks[cbTracks.ItemIndex].Stations[J].Display);
   end;
 
-//For I := 0 to Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations.Count -1 do
-//  cbDisplay.Items.Add(Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations[I].Display);
-
 end;
 
 procedure TMain.btnPlayClick(Sender: TObject);
 var
+  I, J: Integer;
   S: String;
 begin
-  S :=
-    Lines[cbLines.ItemIndex].Directory +
-    Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].
-      Stations[cbStations.ItemIndex].FileName;
-                                        
+
+
+  For I := 0 to Lines.Count -1 do
+  begin
+    If (Lines[I].Name = cbLines.Text) and (Lines[I].Folder = cbFolder.Text) then
+    begin
+      S :=
+        Lines[I].Directory +
+        Lines[I].Tracks[cbTracks.ItemIndex].
+        Stations[cbStations.ItemIndex].FileName;
+      Break;
+    end;
+  end;
+
   BASS_StreamFree(Channel);
 
   Channel := BASS_StreamCreateFile(False, PChar(S), 0, 0, 0);
@@ -550,8 +551,8 @@ end;
 
 procedure TMain.cXMLContent(Sender: TObject; Content: String);
 begin
-    Lines.Line[Position.Line -1].Tracks.Track[Position.Track -1].Stations.
-      Station[Position.Station -1].Display := Content;
+  Lines.Line[Position.Line -1].Tracks.Track[Position.Track -1].Stations.
+    Station[Position.Station -1].Display := Content;
 end;
 
 procedure TMain.cbStationsChange(Sender: TObject);

@@ -1,6 +1,6 @@
 object Main: TMain
-  Left = 637
-  Top = 378
+  Left = 335
+  Top = 464
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'IBIS-Ger'#228't'
