@@ -21,7 +21,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, cCiaBuffer, WSocket, ExtCtrls, uTimetables,
-  LibXmlParser, LibXmlComps, ComCtrls, fisHotKey, Bass, IniFiles, XPMan;
+  LibXmlParser, LibXmlComps, ComCtrls, fisHotKey, Bass, IniFiles, XPMan,
+  LCDScreen;
 
 type
   TMain = class(TForm)
@@ -51,6 +52,7 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label6: TLabel;
+    LcdAnzeige: TLCDScreen;
     procedure CliSocketBufferReceived(Sender: TObject);
     procedure CliSocketDataAvailable(Sender: TObject; Error: Word);
     procedure CliSocketSessionClosed(Sender: TObject; Error: Word);
@@ -358,9 +360,6 @@ begin
   cbTracks.Clear;
   cbLines.Clear;
 
-//For I := 0 to Lines.Count -1 do
-//  cbLines.Items.Add(Lines[I].Name);
-
   For I := 0 to Lines.Count -1 do
     If ((Lines[I].Folder <> '') and
       (cbFolder.Items.IndexOf(Lines[I].Folder) = (-1)))
@@ -476,9 +475,6 @@ begin
         cbTracks.Items.Add(Lines[I].Tracks[J].Route);
   end;
 
-//For I := 0 to Lines[cbLines.ItemIndex].Tracks.Count -1 do
-//  cbTracks.Items.Add(Lines[cbLines.ItemIndex].Tracks[I].Route)
-
 end;
 
 procedure TMain.cbTracksChange(Sender: TObject);
@@ -558,6 +554,7 @@ end;
 procedure TMain.cbStationsChange(Sender: TObject);
 begin
   cbDisplay.ItemIndex := cbStations.ItemIndex;
+  LcdAnzeige.Lines[1] := UpperCase(cbDisplay.Text);
 end;
 
 procedure TMain.cbDisplayChange(Sender: TObject);
