@@ -1,6 +1,6 @@
 object Main: TMain
-  Left = 588
-  Top = 123
+  Left = 637
+  Top = 378
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'IBIS-Ger'#228't'
@@ -182,28 +182,28 @@ object Main: TMain
     LingerTimeout = 0
     SocksLevel = '5'
     SocksAuthentication = socksNoAuthentication
-    Left = 220
-    Top = 360
+    Left = 240
+    Top = 440
   end
   object CliSocketBuffer: TCiaBuffer
     InitialSize = 4096
     SwapLen = False
     OnReceived = CliSocketBufferReceived
-    Left = 248
-    Top = 360
+    Left = 268
+    Top = 440
   end
   object cXML: TEasyXmlScanner
     Normalize = True
     OnStartTag = cXMLStartTag
     OnEndTag = cXMLEndTag
     OnContent = cXMLContent
-    Left = 160
-    Top = 7
+    Left = 184
+    Top = 440
   end
   object cHotKey: TfisHotKey
     Key = 0
     OnHotKey = cHotKeyHotKey
-    Left = 216
-    Top = 7
+    Left = 212
+    Top = 440
   end
 end

@@ -88,6 +88,8 @@ resourcestring
 
 implementation
 
+uses uUtilities;
+
 {$R *.dfm}
 
 procedure TMain.CliSocketBufferReceived(Sender: TObject);
@@ -329,10 +331,20 @@ end;
 
 procedure TMain.btnScanClick(Sender: TObject);
 var
+  Files: TStringList;
   I: Integer;
 begin
-  cXML.Filename := ExtractFilePath(Application.ExeName)+'Ansagen.xml';
-  cXML.Execute;
+  Files := TStringList.Create;
+  FindFiles(ExtractFilePath(Application.ExeName)+'Ansagen','*.xml',True,Files);
+
+  For I := 0 to Files.Count -1 do
+  begin
+    cXML.Filename := Files[I];
+    cXML.Execute;
+  end;
+
+  Files.Free;
+
   btnScan.Enabled := False;
 
   cbStations.Clear;
@@ -388,12 +400,13 @@ begin
   If TagName = 'Line' then
   begin
     Line := TLine.Create;
+    Line.Directory := ExtractFilePath(cXML.Filename);
     For I := 0 to Attributes.Count -1 do
     begin
       If Attributes.Name(I) = 'Name'
         then Line.Name := Attributes.Value(I);
-      If Attributes.Name(I) = 'Directory'
-        then Line.Directory := Attributes.Value(I);
+    //If Attributes.Name(I) = 'Directory'
+    //  then Line.Directory := Attributes.Value(I);
     end;
     Lines.Add(Line);
     Inc(Position.Line);
@@ -465,12 +478,10 @@ var
   S: String;
 begin
   S :=
-    ExtractFilePath(Application.ExeName) +
-    'Ansagen\'+
-    Lines[cbLines.ItemIndex].Directory + '\' +
+    Lines[cbLines.ItemIndex].Directory +
     Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].
       Stations[cbStations.ItemIndex].FileName;
-
+                                        
   BASS_StreamFree(Channel);
 
   Channel := BASS_StreamCreateFile(False, PChar(S), 0, 0, 0);

@@ -19,7 +19,8 @@ ICQ# 32988298
 uses
   Forms,
   uMain in 'uMain.pas' {Main},
-  uTimetables in 'uTimetables.pas';
+  uTimetables in 'uTimetables.pas',
+  uUtilities in 'uUtilities.pas';
 
 {$R *.res}
 
