@@ -11,16 +11,28 @@ var
   WndZusi: HWND;
   Rect: TRect;
   InfoWndSize: TPoint;
+  ZusiPath: String;
   ZusiExe: String;
   SleepTime: Integer;
 
 begin
   OpenIni;
-  ZusiExe := GetZusiFileName;
+  ZusiPath := GetZusiFileName;
   WndZusi := FindWindow('TFormZusiD3DApplication',nil);
-  If WndZusi = 0 then WinExec(PChar(ZusiExe), SW_SHOWNORMAL);
-
   Ini.Section := 'Settings';
+  ZusiExe := Ini.ValueString('ZusiExe','Zusi.exe');
+  If not FileExists(ZusiPath + ZusiExe) then
+  begin
+    MessageBox(0,
+      PChar('Zusi wurde unter dem Pfad '+ZusiPath + ZusiExe+' nicht gefunden. Korrigieren '+
+      'Sie den Pfad in der Registry oder tragen Sie ihn in die Ini-Datei im '+
+      'Bereich [Zusi] unter dem Eintrag Zusi an.'),
+      'Zusi-Pfadangabe fehlerhaft',
+      MB_ICONERROR or MB_OK);
+    Halt(1);
+  end;
+  If WndZusi = 0 then WinExec(PChar(ZusiPath + ZusiExe), SW_SHOWNORMAL);
+
   SleepTime := Ini.ValueInteger('Sleep',1000);
 
   Ini.Section := 'Info';

@@ -42,18 +42,8 @@ begin
     end;
   end;
   If Result[Length(Result)] <> '\' then
-    Result := Result + '\Zusi.exe' else
-      Result := Result + 'Zusi.exe';
-  If not FileExists(Result) then
-  begin
-    MessageBox(0,
-      PChar('Zusi wurde unter dem Pfad '+Result+' nicht gefunden. Korrigieren '+
-      'Sie den Pfad in der Registry oder tragen Sie ihn in die Ini-Datei im '+
-      'Bereich [Zusi] unter dem Eintrag Zusi an.'),
-      'Zusi-Pfadangabe fehlerhaft',
-      MB_ICONERROR or MB_OK);
-    Halt(1);
-  end;
+    Result := Result + '\' else
+      Result := Result + '';
 end;
 
 end.
