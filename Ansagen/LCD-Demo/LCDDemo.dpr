@@ -2,7 +2,8 @@ program LCDDemo;
 
 uses
   Forms,
-  LCDMain in 'LCDMain.pas' {LCDMainForm};
+  LCDMain in 'LCDMain.pas' {LCDMainForm},
+  LCDUtils in 'LCDUtils.pas';
 
 {$R *.RES}
 

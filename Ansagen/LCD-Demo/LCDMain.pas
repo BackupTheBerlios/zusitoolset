@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Controls, Forms,
-  StdCtrls, Buttons, JvHidControllerClass;
+  StdCtrls, Buttons, JvHidControllerClass, LCDUtils;
 
 const
   cCodeMercenariesVID = $07C0;
@@ -31,6 +31,8 @@ type
     edPos: TEdit;
     Label1: TLabel;
     Label2: TLabel;
+    Button3: TButton;
+    Button4: TButton;
     procedure FormCreate(Sender: TObject);
     procedure HidCtlDeviceChange(Sender: TObject);
     procedure EnableChkClick(Sender: TObject);
@@ -38,11 +40,14 @@ type
       const Data: Pointer; Size: Word);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   public
     Edits: array [1..7] of TEdit;
     IOWarrior: TJvHidDevice;
     EnableDevice: Boolean;
-    procedure SendData(S: String; Pos: Byte);
+    procedure SendData(S: String; Pos: Byte); overload;
+    procedure SendData(S: String); overload;
   end;
 
 var
@@ -53,10 +58,7 @@ implementation
 {$R *.dfm}
 
 procedure TLCDMainForm.FormCreate(Sender: TObject);
-var
-  I: Integer;
 begin
-  // otherwise the Edits are not assigned yet
   HidCtl.OnDeviceChange := HidCtlDeviceChange;
 end;
 
@@ -92,6 +94,7 @@ begin
     end;
   if Assigned(IOWarrior) then
   begin
+    EnableChkClick(Self);
     if IOWarrior.Attributes.ProductID = cIOWarrior24PID then
       IOWarriorAvailable.Caption := 'IOWarrior 24 found'
     else
@@ -104,8 +107,6 @@ end;
 procedure TLCDMainForm.HidCtlDeviceData(HidDev: TJvHidDevice; ReportID: Byte;
   const Data: Pointer; Size: Word);
 var
-  I: Integer;
-  Str: string;
   P: PChar;
 begin
   P := Data;
@@ -137,25 +138,57 @@ procedure TLCDMainForm.Button1Click(Sender: TObject);
 var
   I: Integer;
   Written: Cardinal;
-  Str: string;
   IOWarriorOutputReport: TIOWarriorOutputReport;
 begin
   with IOWarriorOutputReport do
   begin
     ReportID := cLCDWriteReportID;
-    // get the input from the user
-    LCDBytes[1] := $03;
+    For I := 1 to 7 do
+      LCDBytes[I] := $00;
+
+    // Initialize and Cursor off
+    LCDBytes[1] := $04;
     LCDBytes[2] := $3C;
     LCDBytes[3] := $0E;
-    LCDBytes[4] := $01;
-    For I := 5 to 7 do
-      LCDBytes[I] := $00;
+    LCDBytes[4] := $0C;
+    LCDBytes[5] := $01;
+
     // reset unused bits in first byte
     LCDBytes[1] := LCDBytes[1] and $07;
-    // add the RS bit from the checkbox
-//    if RSBit.Checked then
-//      LCDBytes[1] := LCDBytes[1] or $80;
     IOWarrior.WriteFile(IOWarriorOutputReport, 8, Written);
+  end;
+end;
+
+procedure TLCDMainForm.SendData(S: String);
+var
+  I: Integer;
+  Written: Cardinal;
+  Text: String;
+  IOWarriorOutputReport: TIOWarriorOutputReport;
+begin
+  with IOWarriorOutputReport do
+  begin
+    ReportID := cLCDWriteReportID;
+    // Set Position
+    Text := GetUmlaut(S);
+
+    While Length(Text) > 0 do
+    begin
+      For I := 2 to 7 do
+        If Length(Text) >= I-1 then
+          LCDBytes[I] := Ord(Text[I-1]) else
+            LCDBytes[I] := $00;
+      If Length(Text) < 6 then
+        LCDBytes[1] := Length(Text) else
+          LCDBytes[1] := 6;
+      Delete(Text, 1, 6);
+
+      // reset unused bits in first byte
+      LCDBytes[1] := LCDBytes[1] and $07;
+      // add the RS bit to send Display text
+      LCDBytes[1] := LCDBytes[1] or $80;
+      IOWarrior.WriteFile(IOWarriorOutputReport, 8, Written);
+    end;
   end;
 end;
 
@@ -164,7 +197,6 @@ var
   I: Integer;
   Written: Cardinal;
   Text: String;
-  Str: string;
   IOWarriorOutputReport: TIOWarriorOutputReport;
 begin
   with IOWarriorOutputReport do
@@ -177,10 +209,10 @@ begin
     LCDBytes[2] := Pos;
     IOWarrior.WriteFile(IOWarriorOutputReport, 8, Written);
 
-    Text := S;
+    Text := GetUmlaut(S);
+
     While Length(Text) > 0 do
     begin
-
       For I := 2 to 7 do
         If Length(Text) >= I-1 then
           LCDBytes[I] := Ord(Text[I-1]) else
@@ -202,6 +234,31 @@ end;
 procedure TLCDMainForm.Button2Click(Sender: TObject);
 begin
   SendData(edData.Text, StrToIntDef(edPos.Text, $80));
+end;
+
+procedure TLCDMainForm.Button3Click(Sender: TObject);
+var
+  I: Integer;
+  Written: Cardinal;
+  IOWarriorOutputReport: TIOWarriorOutputReport;
+begin
+  with IOWarriorOutputReport do
+  begin
+    ReportID := cLCDWriteReportID;
+    For I := 1 to 7 do
+      LCDBytes[I] := $00;
+    // get the input from the user
+    LCDBytes[1] := $01 or $80;
+    LCDBytes[2] := $0E;
+    // reset unused bits in first byte
+    LCDBytes[1] := LCDBytes[1] and $07;
+    IOWarrior.WriteFile(IOWarriorOutputReport, 8, Written);
+  end;
+end;
+
+procedure TLCDMainForm.Button4Click(Sender: TObject);
+begin
+  SendData(edData.Text);
 end;
 
 end.
