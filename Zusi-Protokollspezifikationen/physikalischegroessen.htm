@@ -1,0 +1,518 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Zusi-Protokoll für TCP-Netzwerkverbindungen</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	<meta name="generator" content="proton und windows notepad">
+</head>
+<body>
+	<h1>Übertragene Daten</h1>
+	<p>
+		Diese Größen entsprechen (zumeist) den Physikalischen Größen des Führerstandformats von Zusi. Sie werden
+		mit dem Befehl DATA 0A (00 0A) als Single-Werte übertragen. Wie diese wieder in lesbare Formate umgewandelt werden, beschreibt
+		der Abschnitt <a href="delphisinglekonvert.htm">Programmierbeispiele: Single-Konvertierung</a>. Wenn es sich um Boolsche Variablen
+		handelt, steht 0 für False und 1 für True.<br>
+		Einige Werte können nicht als Single übertragen werden (zum Beispiel Dateinamen). Diese werden als String übertragen. Bei den
+		entsprechenden Werten steht der Typ String in Fettschrift daneben. Bei den Strings liefert das erste Byte die Längenangabe
+		des Strings, danach folgt der eigentliche Wert. Die maximale Länge beträgt damit 255 Elemente. Ein leerer String wird durch
+		die ID und die nachfolgende Länge 00 referenziert.
+    </p>
+    <table border="0" bgcolor="#FFFFFF">
+    <tr>
+        <td bgcolor="#E3E3E3"><strong>Wert</strong></td>
+        <td bgcolor="#E3E3E3"><strong>Hex</strong></td>
+        <td bgcolor="#FEE7D1"><strong>Bedeutung</strong></td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">0</td>
+        <td bgcolor="#E3E3E3">0x00</td>
+        <td bgcolor="#FEE7D1">keine Funktion</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">1</td>
+        <td bgcolor="#E3E3E3">0x01</td>
+        <td bgcolor="#FEE7D1">Geschwindigkeit</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">2</td>
+        <td bgcolor="#E3E3E3">0x02</td>
+        <td bgcolor="#FEE7D1">Druck Hauptluftleitung</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">3</td>
+        <td bgcolor="#E3E3E3">0x03</td>
+        <td bgcolor="#FEE7D1">Druck Bremszylinder</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">4</td>
+        <td bgcolor="#E3E3E3">0x04</td>
+        <td bgcolor="#FEE7D1">Druck Hauptluftbehälter</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">5</td>
+        <td bgcolor="#E3E3E3">0x05</td>
+        <td bgcolor="#FEE7D1">Zugkraft gesamt</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">6</td>
+        <td bgcolor="#E3E3E3">0x06</td>
+        <td bgcolor="#FEE7D1">Zugkraft pro Achse</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">7</td>
+        <td bgcolor="#E3E3E3">0x07</td>
+        <td bgcolor="#FEE7D1">Strom</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">8</td>
+        <td bgcolor="#E3E3E3">0x08</td>
+        <td bgcolor="#FEE7D1">Spannung</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">9</td>
+        <td bgcolor="#E3E3E3">0x09</td>
+        <td bgcolor="#FEE7D1">Motordrehzahl</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">10</td>
+        <td bgcolor="#E3E3E3">0x0a</td>
+        <td bgcolor="#FEE7D1">Uhrzeit Stunde</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">11</td>
+        <td bgcolor="#E3E3E3">0x0b</td>
+        <td bgcolor="#FEE7D1">Uhrzeit Minute</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">12</td>
+        <td bgcolor="#E3E3E3">0x0c</td>
+        <td bgcolor="#FEE7D1">Uhrzeit Sekunde</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">13</td>
+        <td bgcolor="#E3E3E3">0x0d</td>
+        <td bgcolor="#FEE7D1">LZB Ziel-Geschwindigkeit</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">14</td>
+        <td bgcolor="#E3E3E3">0x0e</td>
+        <td bgcolor="#FEE7D1">LZB/AFB Soll-Geschwindigkeit</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">15</td>
+        <td bgcolor="#E3E3E3">0x0f</td>
+        <td bgcolor="#FEE7D1">LZB Zielweg</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">16</td>
+        <td bgcolor="#E3E3E3">0x10</td>
+        <td bgcolor="#FEE7D1">Fahrstufe</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">17</td>
+        <td bgcolor="#E3E3E3">0x11</td>
+        <td bgcolor="#FEE7D1">3D-Fenster</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">18</td>
+        <td bgcolor="#E3E3E3">0x12</td>
+        <td bgcolor="#FEE7D1">AFB Soll-Geschwindigkeit</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">19</td>
+        <td bgcolor="#E3E3E3">0x13</td>
+        <td bgcolor="#FEE7D1">Druck Hilfsluftbehälter</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">20</td>
+        <td bgcolor="#E3E3E3">0x14</td>
+        <td bgcolor="#FEE7D1">LM PZB 1000Hz</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">21</td>
+        <td bgcolor="#E3E3E3">0x15</td>
+        <td bgcolor="#FEE7D1">LM PZB 500Hz</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">22</td>
+        <td bgcolor="#E3E3E3">0x16</td>
+        <td bgcolor="#FEE7D1">LM PZB Befehl</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">23</td>
+        <td bgcolor="#E3E3E3">0x17</td>
+        <td bgcolor="#FEE7D1">LM PZB Zugart U</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">24</td>
+        <td bgcolor="#E3E3E3">0x18</td>
+        <td bgcolor="#FEE7D1">LM PZB Zugart M</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">25</td>
+        <td bgcolor="#E3E3E3">0x19</td>
+        <td bgcolor="#FEE7D1">LM PZB Zugart O</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">26</td>
+        <td bgcolor="#E3E3E3">0x1a</td>
+        <td bgcolor="#FEE7D1">LM LZB H</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">27</td>
+        <td bgcolor="#E3E3E3">0x1b</td>
+        <td bgcolor="#FEE7D1">LM LZB G</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">28</td>
+        <td bgcolor="#E3E3E3">0x1c</td>
+        <td bgcolor="#FEE7D1">LM LZB E40</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">29</td>
+        <td bgcolor="#E3E3E3">0x1d</td>
+        <td bgcolor="#FEE7D1">LM LZB EL</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">30</td>
+        <td bgcolor="#E3E3E3">0x1e</td>
+        <td bgcolor="#FEE7D1">LM LZB Ende</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">31</td>
+        <td bgcolor="#E3E3E3">0x1f</td>
+        <td bgcolor="#FEE7D1">LM LZB V40</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">32</td>
+        <td bgcolor="#E3E3E3">0x20</td>
+        <td bgcolor="#FEE7D1">LM LZB B</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">33</td>
+        <td bgcolor="#E3E3E3">0x21</td>
+        <td bgcolor="#FEE7D1">LM LZB S</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">34</td>
+        <td bgcolor="#E3E3E3">0x22</td>
+        <td bgcolor="#FEE7D1">LM LZB Ü</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">35</td>
+        <td bgcolor="#E3E3E3">0x23</td>
+        <td bgcolor="#FEE7D1">LM LZB Prüfen</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">36</td>
+        <td bgcolor="#E3E3E3">0x24</td>
+        <td bgcolor="#FEE7D1">LM Sifa</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">37</td>
+        <td bgcolor="#E3E3E3">0x25</td>
+        <td bgcolor="#FEE7D1">LM Hauptschalter</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">38</td>
+        <td bgcolor="#E3E3E3">0x26</td>
+        <td bgcolor="#FEE7D1">LM Getriebe</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">39</td>
+        <td bgcolor="#E3E3E3">0x27</td>
+        <td bgcolor="#FEE7D1">LM Schleudern</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">40</td>
+        <td bgcolor="#E3E3E3">0x28</td>
+        <td bgcolor="#FEE7D1">LM Gleiten</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">41</td>
+        <td bgcolor="#E3E3E3">0x29</td>
+        <td bgcolor="#FEE7D1">LM Mg-Bremse</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">42</td>
+        <td bgcolor="#E3E3E3">0x2a</td>
+        <td bgcolor="#FEE7D1">LM H-Bremse</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">43</td>
+        <td bgcolor="#E3E3E3">0x2b</td>
+        <td bgcolor="#FEE7D1">LM R-Bremse</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">44</td>
+        <td bgcolor="#E3E3E3">0x2c</td>
+        <td bgcolor="#FEE7D1">LM Hochabbremsung</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">45</td>
+        <td bgcolor="#E3E3E3">0x2d</td>
+        <td bgcolor="#FEE7D1">LM Schnellbremsung</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">46</td>
+        <td bgcolor="#E3E3E3">0x2e</td>
+        <td bgcolor="#FEE7D1">LM Notbremsung</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">47</td>
+        <td bgcolor="#E3E3E3">0x2f</td>
+        <td bgcolor="#FEE7D1">LM Türen</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">48</td>
+        <td bgcolor="#E3E3E3">0x30</td>
+        <td bgcolor="#FEE7D1">LM Tfz-Nummer</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">49</td>
+        <td bgcolor="#E3E3E3">0x31</td>
+        <td bgcolor="#FEE7D1">LM max. Tfz-Geschwindidigkeit</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">50</td>
+        <td bgcolor="#E3E3E3">0x32</td>
+        <td bgcolor="#FEE7D1">LM Uhrzeit (digital) <b>(TDateTime,
+	8 Byte)</b></td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">51</td>
+        <td bgcolor="#E3E3E3">0x33</td>
+        <td bgcolor="#FEE7D1">Schalter Fahrstufen</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">52</td>
+        <td bgcolor="#E3E3E3">0x34</td>
+        <td bgcolor="#FEE7D1">Schalter Führerbremsventil</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">53</td>
+        <td bgcolor="#E3E3E3">0x35</td>
+        <td bgcolor="#FEE7D1">Schalter dyn. Bremse</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">54</td>
+        <td bgcolor="#E3E3E3">0x36</td>
+        <td bgcolor="#FEE7D1">Schalter Zusatzbremse</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">55</td>
+        <td bgcolor="#E3E3E3">0x37</td>
+        <td bgcolor="#FEE7D1">Schalter AFB-Geschwindigkeit</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">56</td>
+        <td bgcolor="#E3E3E3">0x38</td>
+        <td bgcolor="#FEE7D1">Schalter AFB ein/aus</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">57</td>
+        <td bgcolor="#E3E3E3">0x39</td>
+        <td bgcolor="#FEE7D1">Schalter Mg-Bremse</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">58</td>
+        <td bgcolor="#E3E3E3">0x3a</td>
+        <td bgcolor="#FEE7D1">Schalter PZB Wachsam</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">59</td>
+        <td bgcolor="#E3E3E3">0x3b</td>
+        <td bgcolor="#FEE7D1">Schalter PZB Frei</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">60</td>
+        <td bgcolor="#E3E3E3">0x3c</td>
+        <td bgcolor="#FEE7D1">Schalter PZB Befehl</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">61</td>
+        <td bgcolor="#E3E3E3">0x3d</td>
+        <td bgcolor="#FEE7D1">Schalter Sifa</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">62</td>
+        <td bgcolor="#E3E3E3">0x3e</td>
+        <td bgcolor="#FEE7D1">Schalter Hauptschalter</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">63</td>
+        <td bgcolor="#E3E3E3">0x3f</td>
+        <td bgcolor="#FEE7D1">Schalter Motor ein/aus</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">64</td>
+        <td bgcolor="#E3E3E3">0x40</td>
+        <td bgcolor="#FEE7D1">Schalter Fahrtrichtung</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">65</td>
+        <td bgcolor="#E3E3E3">0x41</td>
+        <td bgcolor="#FEE7D1">Schalter Pfeife</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">66</td>
+        <td bgcolor="#E3E3E3">0x42</td>
+        <td bgcolor="#FEE7D1">Schalter Sanden</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">67</td>
+        <td bgcolor="#E3E3E3">0x43</td>
+        <td bgcolor="#FEE7D1">Schalter Türen</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">68</td>
+        <td bgcolor="#E3E3E3">0x44</td>
+        <td bgcolor="#FEE7D1">Schalter Glocke</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">69</td>
+        <td bgcolor="#E3E3E3">0x45</td>
+        <td bgcolor="#FEE7D1">Schalter Lokbremse entlüften</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">70</td>
+        <td bgcolor="#E3E3E3">0x46</td>
+        <td bgcolor="#FEE7D1">Schalter Schleuderschutzbremse</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">71</td>
+        <td bgcolor="#E3E3E3">0x47</td>
+        <td bgcolor="#FEE7D1">LM Drehzahlverstellung</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">72</td>
+        <td bgcolor="#E3E3E3">0x48</td>
+        <td bgcolor="#FEE7D1">LM Fahrtrichtung vor</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">73</td>
+        <td bgcolor="#E3E3E3">0x49</td>
+        <td bgcolor="#FEE7D1">LM Fahrtrichtung zurück</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">74</td>
+        <td bgcolor="#E3E3E3">0x4a</td>
+        <td bgcolor="#FEE7D1">Schalter Signum</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">75</td>
+        <td bgcolor="#E3E3E3">0x4b</td>
+        <td bgcolor="#FEE7D1">LM LZB Zielweg (ab 0)</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">76</td>
+        <td bgcolor="#E3E3E3">0x4c</td>
+        <td bgcolor="#FEE7D1">LZB Soll-Geschwindigkeit</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">77</td>
+        <td bgcolor="#E3E3E3">0x4d</td>
+        <td bgcolor="#FEE7D1">LM Block, bis zu dem die Strecke
+        frei ist <b>(String)</b></td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">78</td>
+        <td bgcolor="#E3E3E3">0x4e</td>
+        <td bgcolor="#FEE7D1">Schalter Lüfter</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">79</td>
+        <td bgcolor="#E3E3E3">0x4f</td>
+        <td bgcolor="#FEE7D1">LM GNT G</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">80</td>
+        <td bgcolor="#E3E3E3">0x50</td>
+        <td bgcolor="#FEE7D1">LM GNT Ü</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">81</td>
+        <td bgcolor="#E3E3E3">0x51</td>
+        <td bgcolor="#FEE7D1">LM GNT B</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">82</td>
+        <td bgcolor="#E3E3E3">0x52</td>
+        <td bgcolor="#FEE7D1">LM GNT S</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">83</td>
+        <td bgcolor="#E3E3E3">0x53</td>
+        <td bgcolor="#FEE7D1">Hintergrundbild
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">84</td>
+        <td bgcolor="#E3E3E3">0x54</td>
+        <td bgcolor="#FEE7D1">Platzhalter Nachtinstrument
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">85</td>
+        <td bgcolor="#E3E3E3">0x55</td>
+        <td bgcolor="#FEE7D1">Strecken-Km</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">86</td>
+        <td bgcolor="#E3E3E3">0x56</td>
+        <td bgcolor="#FEE7D1">Türen</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">87</td>
+        <td bgcolor="#E3E3E3">0x57</td>
+        <td bgcolor="#FEE7D1">Autopilot</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">88</td>
+        <td bgcolor="#E3E3E3">0x58</td>
+        <td bgcolor="#FEE7D1">Reisezug</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">89</td>
+        <td bgcolor="#E3E3E3">0x59</td>
+        <td bgcolor="#FEE7D1">PZB-System</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">90</td>
+        <td bgcolor="#E3E3E3">0x5a</td>
+        <td bgcolor="#FEE7D1">Frames per Second</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">91</td>
+        <td bgcolor="#E3E3E3">0x5b</td>
+        <td bgcolor="#FEE7D1">Führerstand sichtbar</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">92</td>
+        <td bgcolor="#E3E3E3">0x5c</td>
+        <td bgcolor="#FEE7D1">Nächster Blockname <b>(String)</b></td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">93</td>
+        <td bgcolor="#E3E3E3">0x5d</td>
+        <td bgcolor="#FEE7D1">Nächstes Gleis <b>(String)</b></td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">94</td>
+        <td bgcolor="#E3E3E3">0x5e</td>
+        <td bgcolor="#FEE7D1">Bremshundertstel</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">95</td>
+        <td bgcolor="#E3E3E3">0x5f</td>
+        <td bgcolor="#FEE7D1">Bremsstellung</td>
+    </tr>
+    <tr>
+        <td bgcolor="#E3E3E3">96</td>
+        <td bgcolor="#E3E3E3">0x60</td>
+        <td bgcolor="#FEE7D1">Zugdatei <b>(String)</b></td>
+    </tr>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Zusi-Protokoll für TCP-Netzwerkverbindungen</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	<meta name="generator" content="proton und windows notepad">
+</head>
+<body>
+	<h1>Programmierbeispiel Single-Konvertierung</h1>
+	<p>
+		Dieses Delphi-Beispiel zeigt die Konvertierung von Datentyp Single in den
+		Speicherbereich von 4 Bytes (im Beispiel ein Array) sowie die Rückkonvertierung
+		in den Datentyp Single.
+    </p>
+    <pre>
+<b>procedure</b> ConvertSingle;
+<b>var</b>
+  FOriginalSingle: Single;
+  FTransportArray: <b>Array</b>[<font color="#008000">0..3</font>] <b>of</b> Byte;
+  FKopieSingle:    Single;
+
+<b>begin</b>
+  <font color="#000080">// Initialisieren</font>
+  FOriginalSingle :=<font color="#008000"> 1234.9876</font>;
+  FKopieSingle    :=<font color="#008000"> 0.0</font>;
+
+  <font color="#000080">// In Byte-Array abspeichern</font>
+  PSingle(@FTransportArray)^ := FOriginalSingle;
+
+  <font color="#000080">// Das Byte-Array kann nun über TCP übertragen werden
+  // Danach muß es wieder dekodiert werden:</font>
+  FKopieSingle := PSingle(@FTransportArray)^;
+<b>end</b>;
+    </pre>
+</body>
+</html>

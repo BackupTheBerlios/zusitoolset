@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Zusi-Protokoll für TCP-Netzwerkverbindungen</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	<meta name="generator" content="proton und windows notepad">
+</head>
+<body>
+	<h1>Sample-Session</a></h1>
+	<p>
+		In diesem Beispiel gehen wir von zwei gedachten Anwendungen aus, die verschiedene Daten benötigen.
+		Das Beispiel zeigt die komplette Kommunikation bis zum Empfangen der ersten Daten. Dies soll
+		den Ablauf des Protokolls näher verdeutlichen.
+    </p>
+    <p>
+    	Die gedachten Anwendungen sind ein Fahrpult (FP) und ein zusätzliches Infofenster (INFO)
+    	sowie der Server (SRV). Das Fahrpult benötigt
+    	im Beispiel die Geschwindigkeit und den Druck der Hauptlufteitung. Das Infofenster benötigt
+    	ebenfalls die Geschwindigkeit und die aktuelle Streckenkilometrierung. Der Einfachheit halber
+    	verwende ich die IDs 01 (Geschwindigkeit), 02 (HLL-Druck) und 03 (Kilometrierung). Die Paketlänge
+    	ergibt sich von selbst und wird im Beispiel ebenfalls weggelassen.
+    <p>
+   	<table>
+    	<tr>
+    		<td valign="top"><b>Anwendung</b></td>
+	    	<td valign="top"><b>Daten</b></td>
+    		<td valign="top"><b>Beschreibung</b></td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>FP > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 01</font>
+	    		<font color="#008000">01 </font>
+	    		<font color="#800080">02 </font>
+	    		<font color="#800000">08 46 61 68 72 70 75 6C 74</font></td>
+    		<td valign="top">
+	    		<font color="#000080">HELLO-Befehl</font><br>
+	    		<font color="#008000">Protokoll-Version "1"</font><br>
+	    		<font color="#800080">Client-Typ "Fahrpult"</font><br>
+	    		<font color="#800000">String "Fahrpult" mit führender Längenangabe (8 Bytes)</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > FP</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 02</font>
+	    		<font color="#008000">00 </font>
+    		<td valign="top">
+	    		<font color="#000080">ACK_HELLO-Befehl</font><br>
+	    		<font color="#008000">Befehl akzeptiert</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>FP > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 03</font>
+	    		<font color="#008000">00 0A</font>
+	    		<font color="#800080">01 02</font>
+    		<td valign="top">
+	    		<font color="#000080">NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehlsvorrat 00 0A</font><br>
+	    		<font color="#800080">IDs 01 und 02</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > FP</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 04</font>
+	    		<font color="#008000">00 </font>
+    		<td valign="top">
+	    		<font color="#000080">ACK_NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehl akzeptiert</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>FP > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 03</font>
+	    		<font color="#008000">00 00</font>
+    		<td valign="top">
+	    		<font color="#000080">NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehlsvorrat 00 00: Letzter Befehl</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > FP</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 04</font>
+	    		<font color="#008000">00 </font>
+    		<td valign="top">
+	    		<font color="#000080">ACK_NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehl akzeptiert</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>INFO > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 01</font>
+	    		<font color="#008000">01 </font>
+	    		<font color="#800080">02 </font>
+	    		<font color="#800000">04 49 6E 66 6F</font></td>
+    		<td valign="top">
+	    		<font color="#000080">HELLO-Befehl</font><br>
+	    		<font color="#008000">Protokoll-Version "1"</font><br>
+	    		<font color="#800080">Client-Typ "Fahrpult"</font><br>
+	    		<font color="#800000">String "Info" mit führender Längenangabe (4 Bytes)</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > INFO</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 02</font>
+	    		<font color="#008000">00 </font>
+    		<td valign="top">
+	    		<font color="#000080">ACK_HELLO-Befehl</font><br>
+	    		<font color="#008000">Befehl akzeptiert</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>INFO > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 03</font>
+	    		<font color="#008000">00 0A</font>
+	    		<font color="#800080">01 03</font>
+    		<td valign="top">
+	    		<font color="#000080">NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehlsvorrat 00 0A</font><br>
+	    		<font color="#800080">IDs 01 und 03</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > INFO</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 04</font>
+	    		<font color="#008000">00 </font>
+    		<td valign="top">
+	    		<font color="#000080">ACK_NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehl akzeptiert</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>INFO > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 03</font>
+	    		<font color="#008000">00 00</font>
+    		<td valign="top">
+	    		<font color="#000080">NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehlsvorrat 00 00: Letzter Befehl</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > INFO</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 04</font>
+	    		<font color="#008000">00 </font>
+    		<td valign="top">
+	    		<font color="#000080">ACK_NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehl akzeptiert</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>ZUSI > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 01</font>
+	    		<font color="#008000">01 </font>
+	    		<font color="#800080">01 </font>
+	    		<font color="#800000">04 5A 75 73 69</font></td>
+    		<td valign="top">
+	    		<font color="#000080">HELLO-Befehl</font><br>
+	    		<font color="#008000">Protokoll-Version "1"</font><br>
+	    		<font color="#800080">Client-Typ "Zusi"</font><br>
+	    		<font color="#800000">String "Zusi" mit führender Längenangabe (4 Bytes)
+	    		[zur Vereinfachung gekürzt, normalerweise meldet sich Zusi mit der
+	    		Versionsnummer "Zusi Zugsimulator 2.4.3.0"]</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > ZUSI</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 02</font>
+	    		<font color="#008000">00 </font>
+    		<td valign="top">
+	    		<font color="#000080">ACK_HELLO-Befehl</font><br>
+	    		<font color="#008000">Befehl akzeptiert</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > ZUSI</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 03</font>
+	    		<font color="#008000">00 0A</font>
+	    		<font color="#800080">01 02 03</font>
+    		<td valign="top">
+	    		<font color="#000080">NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehlsvorrat 00 0A</font><br>
+	    		<font color="#800080">IDs 01, 02 und 03</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>ZUSI > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 04</font>
+	    		<font color="#008000">00 </font>
+    		<td valign="top">
+	    		<font color="#000080">ACK_NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehl akzeptiert</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > ZUSI</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 03</font>
+	    		<font color="#008000">00 00</font>
+    		<td valign="top">
+	    		<font color="#000080">NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehlsvorrat 00 00: Letzter Befehl</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>ZUSI > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 04</font>
+	    		<font color="#008000">00 </font>
+    		<td valign="top">
+	    		<font color="#000080">ACK_NEEDED_DATA-Befehl</font><br>
+	    		<font color="#008000">Befehl akzeptiert</font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>ZUSI > SRV</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 0A</font>
+	    		<font color="#800080">01 </font>
+	    		<font color="#800000">04 6B 74 81 </font><br>
+	    		<font color="#800080">         02 </font>
+	    		<font color="#800000">A2 4E 67 91 </font><br>
+	    		<font color="#800080">         03 </font>
+	    		<font color="#800000">02 12 01 00 </font><br></td>
+    		<td valign="top">
+	    		<font color="#000080">DATA-Befehl</font><br>
+	    		<font color="#800080">Daten-IDs 01-03 </font>
+	    		<font color="#800000">Daten (konvertierter Single-Datentyp) </font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > FP</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 0A</font>
+	    		<font color="#800080">01 </font>
+	    		<font color="#800000">04 6B 74 81 </font><br>
+	    		<font color="#800080">         02 </font>
+	    		<font color="#800000">A2 4E 67 91 </font><br>
+    		<td valign="top">
+	    		<font color="#000080">DATA-Befehl</font><br>
+	    		<font color="#800080">Daten-IDs 01 und 02</font>
+	    		<font color="#800000">Daten (konvertierter Single-Datentyp) </font><br>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>SRV > INFO</td>
+	    	<td valign="top" nowrap>
+	    		<font color="#000080">00 0A</font>
+	    		<font color="#800080">01 </font>
+	    		<font color="#800000">04 6B 74 81 </font><br>
+	    		<font color="#800080">         03 </font>
+	    		<font color="#800000">02 12 01 00 </font><br></td>
+    		<td valign="top">
+	    		<font color="#000080">DATA-Befehl</font><br>
+	    		<font color="#800080">Daten-IDs 01 und 03 </font>
+	    		<font color="#800000">Daten (konvertierter Single-Datentyp) </font><br>
+    		</td>
+    	</tr>
+    </table>
+    </p>
+    </body>
+</body>
+</html>

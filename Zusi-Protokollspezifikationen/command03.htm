@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Zusi-Protokoll für TCP-Netzwerkverbindungen</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	<meta name="generator" content="proton und windows notepad">
+</head>
+<body>
+	<h1>00 03 - NEEDED_DATA</a></h1>
+	<p>
+		<i><b>Externe Anwendung » Server</b> und <b>Server » Zusi</b></i><br>
+		Mit dem NEEDED_DATA-Befehl vereinbaren die Clients (nicht Zusi), welche Daten sie benötigen.<br>
+		Es können hier nur IDs aus einem Befehlsvorrat angegeben werden. Werden mehrere Befehlsvorräte
+		benötigt, wird der Befehl mehrfach gesendet. Der Befehl darf auch innerhalb eines Befehlsvorrats
+		mehrfach gesendet werden, die weiteren IDs werden dann hinzugefügt.
+    </p>
+    <p>
+   	<table>
+    	<tr>
+    		<td valign="top"><b>Länge</b></td>
+	    	<td valign="top"><b>Inhalt</b></td>
+    		<td valign="top"><b>Bezeichnung</b></td>
+    		<td valign="top"><b>Beschreibung</b></td>
+    	</tr>
+    	<tr>
+    		<td valign="top" nowrap>4 bytes</td>
+	    	<td valign="top" nowrap>xx xx xx xx</td>
+    		<td valign="top">PACKET_LENGTH</td>
+    		<td valign="top">Länge des nachfolgenden Datenpakets in Byte (Cardinal, Intel-Order)</td>
+    	</tr>
+    	<tr>
+    		<td valign="top">2 bytes</td>
+	    	<td valign="top">00 03</td>
+    		<td valign="top">NEEDED_DATA</td>
+    		<td valign="top">Befehl NEEDED_DATA</td>
+    	</tr>
+    	<tr>
+    		<td valign="top">2 bytes</td>
+	    	<td valign="top">xx xx</td>
+    		<td valign="top">COMMAND</td>
+    		<td valign="top">Definiert den Befehlsvorrat, aus dem die IDs gewählt wurden.<br>
+    		00 00: Befehlsvorrat für den letzten Befehl (ohne weitere Daten). Dieser wird immer
+    		nach der letzten Befehlsanforderung gesendet.<br>
+    		00 0A: Befehlsvorrat für Führerstandsanzeigen.</td>
+    	</tr>
+    	<tr>
+    		<td valign="top">variabel</td>
+	    	<td valign="top">xx ...</td>
+    		<td valign="top">IDs</td>
+    		<td valign="top">Benötigte IDs mit ID-Nummern aus dem vorgenannten Befehlsvorrat</td>
+    	</tr>
+    </table>
+    </p>
+</body>
+</html>
