@@ -46,6 +46,11 @@ type
     Button3: TButton;
     cbDisplay: TComboBox;
     cbFolder: TComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label6: TLabel;
     procedure CliSocketBufferReceived(Sender: TObject);
     procedure CliSocketDataAvailable(Sender: TObject; Error: Word);
     procedure CliSocketSessionClosed(Sender: TObject; Error: Word);
@@ -364,6 +369,7 @@ end;
 
 procedure TMain.FormCreate(Sender: TObject);
 begin
+  If Screen.Fonts.IndexOf('Tahoma') <> (-1) then Font.Name := 'Tahoma';
   Lines := TLines.Create;
   XmlFormat.DecimalSeparator := '.';
   IniFile := TIniFile.Create(ChangeFileExt(Application.ExeName,'.ini'));
@@ -457,26 +463,53 @@ end;
 
 procedure TMain.cbLinesChange(Sender: TObject);
 Var
-  I: Integer;
+  I, J: Integer;
 begin
   cbDisplay.Clear;
   cbStations.Clear;
   cbTracks.Clear;
-  For I := 0 to Lines[cbLines.ItemIndex].Tracks.Count -1 do
-    cbTracks.Items.Add(Lines[cbLines.ItemIndex].Tracks[I].Route)
+
+  For I := 0 to Lines.Count -1 do
+  begin
+    If (Lines[I].Name = cbLines.Text) and (Lines[I].Folder = cbFolder.Text) then
+      For J := 0 to Lines[I].Tracks.Count -1 do
+        cbTracks.Items.Add(Lines[I].Tracks[J].Route);
+  end;
+
+//For I := 0 to Lines[cbLines.ItemIndex].Tracks.Count -1 do
+//  cbTracks.Items.Add(Lines[cbLines.ItemIndex].Tracks[I].Route)
+
 end;
 
 procedure TMain.cbTracksChange(Sender: TObject);
 Var
-  I: Integer;
+  I, J: Integer;
 begin
+
   cbStations.Clear;
-  For I := 0 to Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations.Count -1 do
-    cbStations.Items.Add(Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations[I].Name);
+
+  For I := 0 to Lines.Count -1 do
+  begin
+    If (Lines[I].Name = cbLines.Text) and (Lines[I].Folder = cbFolder.Text) then
+      For J := 0 to Lines[I].Tracks[cbTracks.ItemIndex].Stations.Count -1 do
+        cbStations.Items.Add(Lines[I].Tracks[cbTracks.ItemIndex].Stations[J].Name);
+  end;
+
+
+//For I := 0 to Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations.Count -1 do
+//  cbStations.Items.Add(Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations[I].Name);
 
   cbDisplay.Clear;
-  For I := 0 to Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations.Count -1 do
-    cbDisplay.Items.Add(Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations[I].Display);
+
+  For I := 0 to Lines.Count -1 do
+  begin
+    If (Lines[I].Name = cbLines.Text) and (Lines[I].Folder = cbFolder.Text) then
+      For J := 0 to Lines[I].Tracks[cbTracks.ItemIndex].Stations.Count -1 do
+        cbDisplay.Items.Add(Lines[I].Tracks[cbTracks.ItemIndex].Stations[J].Display);
+  end;
+
+//For I := 0 to Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations.Count -1 do
+//  cbDisplay.Items.Add(Lines[cbLines.ItemIndex].Tracks[cbTracks.ItemIndex].Stations[I].Display);
 
 end;
 

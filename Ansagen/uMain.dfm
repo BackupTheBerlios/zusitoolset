@@ -18,9 +18,44 @@ object Main: TMain
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 16
+    Top = 32
+    Width = 109
+    Height = 13
+    Caption = 'Ordner (Strecke, Stadt)'
+  end
+  object Label2: TLabel
+    Left = 16
+    Top = 80
+    Width = 155
+    Height = 13
+    Caption = 'Linie (z.B. S-Bahn-Liniennummer)'
+  end
+  object Label3: TLabel
+    Left = 16
+    Top = 128
+    Width = 230
+    Height = 13
+    Caption = 'Fahrtrichtung bzw. befahrener Streckenabschnitt'
+  end
+  object Label4: TLabel
+    Left = 16
+    Top = 176
+    Width = 105
+    Height = 13
+    Caption = 'N'#228'chste Betriebsstelle'
+  end
+  object Label6: TLabel
+    Left = 16
+    Top = 224
+    Width = 202
+    Height = 13
+    Caption = 'Betriebsstelle mit Bezeichnung f'#252'r Anzeiger'
+  end
   object GroupBox1: TGroupBox
-    Left = 151
-    Top = 346
+    Left = 16
+    Top = 324
     Width = 290
     Height = 94
     Caption = ' TCP-Verbindung '
@@ -69,8 +104,8 @@ object Main: TMain
     end
   end
   object paKm: TPanel
-    Left = 11
-    Top = 344
+    Left = 173
+    Top = 428
     Width = 131
     Height = 41
     TabOrder = 1
@@ -85,8 +120,8 @@ object Main: TMain
     OnClick = cbOnTopClick
   end
   object btnScan: TButton
-    Left = 168
-    Top = 56
+    Left = 343
+    Top = 24
     Width = 75
     Height = 25
     Caption = 'Scan'
@@ -95,8 +130,8 @@ object Main: TMain
   end
   object cbLines: TComboBox
     Left = 16
-    Top = 56
-    Width = 145
+    Top = 96
+    Width = 233
     Height = 21
     Style = csDropDownList
     ItemHeight = 13
@@ -105,8 +140,8 @@ object Main: TMain
   end
   object cbTracks: TComboBox
     Left = 16
-    Top = 88
-    Width = 145
+    Top = 144
+    Width = 233
     Height = 21
     Style = csDropDownList
     ItemHeight = 13
@@ -115,8 +150,8 @@ object Main: TMain
   end
   object cbStations: TComboBox
     Left = 16
-    Top = 118
-    Width = 145
+    Top = 192
+    Width = 233
     Height = 21
     Style = csDropDownList
     ItemHeight = 13
@@ -124,8 +159,8 @@ object Main: TMain
     OnChange = cbStationsChange
   end
   object btnPlay: TButton
-    Left = 168
-    Top = 88
+    Left = 343
+    Top = 56
     Width = 75
     Height = 25
     Caption = 'Play'
@@ -150,9 +185,9 @@ object Main: TMain
     OnClick = Button3Click
   end
   object cbDisplay: TComboBox
-    Left = 168
-    Top = 118
-    Width = 145
+    Left = 16
+    Top = 240
+    Width = 233
     Height = 21
     Style = csDropDownList
     ItemHeight = 13
@@ -161,8 +196,8 @@ object Main: TMain
   end
   object cbFolder: TComboBox
     Left = 16
-    Top = 24
-    Width = 145
+    Top = 48
+    Width = 233
     Height = 21
     Style = csDropDownList
     ItemHeight = 13
