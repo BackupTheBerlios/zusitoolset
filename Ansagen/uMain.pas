@@ -21,7 +21,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, cCiaBuffer, WSocket, ExtCtrls, uTimetables,
-  LibXmlParser, LibXmlComps, ComCtrls, fisHotKey, Bass, IniFiles, XPMan,
+  LibXmlParser, LibXmlComps, ComCtrls, fisHotKey, uSound, IniFiles, XPMan,
   LCDScreen, Math;
 
 type
@@ -520,31 +520,33 @@ var
   I: Integer;
   S: String;
 begin
-
-
-  For I := 0 to Lines.Count -1 do
+  If UseSound then
   begin
-    If (Lines[I].Name = cbLines.Text) and (Lines[I].Folder = cbFolder.Text) then
+
+    For I := 0 to Lines.Count -1 do
     begin
-      S :=
-        Lines[I].Directory +
-        Lines[I].Tracks[cbTracks.ItemIndex].
-        Stations[cbStations.ItemIndex].FileName;
-      Break;
+      If (Lines[I].Name = cbLines.Text) and (Lines[I].Folder = cbFolder.Text) then
+      begin
+        S :=
+          Lines[I].Directory +
+          Lines[I].Tracks[cbTracks.ItemIndex].
+          Stations[cbStations.ItemIndex].FileName;
+        Break;
+      end;
     end;
+
+    BASS_StreamFree(Channel);
+
+    Channel := BASS_StreamCreateFile(False, PChar(S), 0, 0, 0);
+    if (Channel = 0) then
+    begin
+      // whatever it is, it ain't playable
+      MessageBox(0, 'Datei nicht gefunden oder falsches Format', 'Fehler', 0);
+      Exit;
+    end;
+
+    BASS_ChannelPlay(Channel, False);
   end;
-
-  BASS_StreamFree(Channel);
-
-  Channel := BASS_StreamCreateFile(False, PChar(S), 0, 0, 0);
-  if (Channel = 0) then
-  begin
-    // whatever it is, it ain't playable
-    MessageBox(0, 'Datei nicht gefunden oder falsches Format', 'Fehler', 0);
-    Exit;
-  end;
-
-  BASS_ChannelPlay(Channel, False);
 
 end;
 

@@ -1,6 +1,6 @@
 object Main: TMain
-  Left = 428
-  Top = 482
+  Left = 347
+  Top = 399
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'IBIS-Ger'#228't'
@@ -265,6 +265,9 @@ object Main: TMain
     MultiCastIpTTL = 1
     ReuseAddr = False
     ComponentOptions = []
+    ListenBacklog = 5
+    ReqVerLow = 1
+    ReqVerHigh = 1
     OnDataAvailable = CliSocketDataAvailable
     OnSessionClosed = CliSocketSessionClosed
     OnSessionConnected = CliSocketSessionConnected
