@@ -56,8 +56,8 @@ object Main: TMain
   object LcdAnzeige: TLCDScreen
     Left = 8
     Top = 8
-    Width = 470
-    Height = 92
+    Width = 401
+    Height = 71
     AnimationDelay = 251
     AnimationEnabled = False
     AnimationRepeating = False
@@ -67,12 +67,12 @@ object Main: TMain
     BitmapYOffset = 0
     BorderSpace = 3
     BorderStyle = bsLowered
-    Color = 10240
+    Color = clBlack
     DisplayMode = dmText
     Font.Charset = ANSI_CHARSET
     Font.Color = clLime
     Font.Height = -9
-    Font.Name = 'Fixedsys'
+    Font.Name = 'Small Fonts'
     Font.Style = []
     Intensity = 127
     Lines.Strings = (
@@ -82,7 +82,7 @@ object Main: TMain
     LinesXOffset = 0
     LinesYOffset = 0
     PixelHeight = 2
-    PixelOff = 25088
+    PixelOff = 16384
     PixelShape = psSquare
     PixelSize = pix2x2
     PixelSpacing = 1
