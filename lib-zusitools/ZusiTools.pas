@@ -21,7 +21,9 @@ begin
   Reg.OpenKeyReadOnly('Software\Zusi');
   S := Reg.ReadString('ZusiDir');
   If S[Length(S)] <> '\' then S := S + '\';
-  Result := S;
+  If S = '\' then
+    S := '' else
+      Result := S;
   Reg.CloseKey;
   Reg.Free;
 end;
