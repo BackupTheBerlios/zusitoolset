@@ -1,5 +1,136 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <Railway>
+  <Line Name="München S1" Directory="S-Bahn München\S1">
+    <Track Route="Ostbahnhof - Flughafen München">
+      <Station Position="0.0" Filename="Rosenheimer Platz.mp3" Name="Rosenheimer Platz">Rosenheimer Platz</Station>
+      <Station Position="0.0" Filename="Isartor.mp3" Name="Isartor">Isartor</Station>
+      <Station Position="0.0" Filename="Marienplatz.mp3" Name="Marienplatz">Marienplatz</Station>
+      <Station Position="0.0" Filename="Karlsplatz (Stachus).mp3" Name="Karlsplatz">Karlsplatz-Stachus</Station>
+      <Station Position="0.0" Filename="Hauptbahnhof.mp3" Name="Hauptbahnhof">Hauptbahnhof DB</Station>
+      <Station Position="0.0" Filename="Hackerbrücke.mp3" Name="Hackerbrücke">Hackerbrücke</Station>
+      <Station Position="0.0" Filename="Donnersbergerbrücke.mp3" Name="Donnersberger Brücke">Donnersberger Brücke</Station>
+      <Station Position="0.0" Filename="Laim (Richtung Freising_Flughafen).mp3" Name="Laim">Laim</Station>
+      <Station Position="0.0" Filename="Moosach.mp3" Name="Moosach">Moosach</Station>
+      <Station Position="0.0" Filename="Fasanerie.mp3" Name="Fasanerie">Fasanerie</Station>
+      <Station Position="0.0" Filename="Feldmoching (Freising-Flughafen).mp3" Name="Feldmoching">Feldmoching</Station>
+      <Station Position="0.0" Filename="Oberschleißheim.mp3" Name="Oberschleißheim">Oberschleißheim</Station>
+      <Station Position="0.0" Filename="Unterschleißheim.mp3" Name="Unterschleißheim">Unterschleißheim</Station>
+      <Station Position="0.0" Filename="Lohhof.mp3" Name="Lohhof">Lohhof</Station>
+      <Station Position="0.0" Filename="Eching.mp3" Name="Eching">Eching</Station>
+      <Station Position="0.0" Filename="Neufahrn.mp3" Name="Neufahrn">Neufahrn</Station>
+      <Station Position="0.0" Filename="Besucherpark (Flughafen).mp3" Name="Flughafen Besucherpark">Flughafen Besucherpark</Station>
+      <Station Position="0.0" Filename="Flughafen.mp3" Name="Flughafen München">Flughafen München</Station>
+    </Track>
+    <Track Route="Ostbahnhof - Freising">
+      <Station Position="0.0" Filename="Rosenheimer Platz.mp3" Name="Rosenheimer Platz">Rosenheimer Platz</Station>
+      <Station Position="0.0" Filename="Isartor.mp3" Name="Isartor">Isartor</Station>
+      <Station Position="0.0" Filename="Marienplatz.mp3" Name="Marienplatz">Marienplatz</Station>
+      <Station Position="0.0" Filename="Karlsplatz (Stachus).mp3" Name="Karlsplatz">Karlsplatz-Stachus</Station>
+      <Station Position="0.0" Filename="Hauptbahnhof.mp3" Name="Hauptbahnhof">Hauptbahnhof DB</Station>
+      <Station Position="0.0" Filename="Hackerbrücke.mp3" Name="Hackerbrücke">Hackerbrücke</Station>
+      <Station Position="0.0" Filename="Donnersbergerbrücke.mp3" Name="Donnersberger Brücke">Donnersberger Brücke</Station>
+      <Station Position="0.0" Filename="Laim (Richtung Freising_Flughafen).mp3" Name="Laim">Laim</Station>
+      <Station Position="0.0" Filename="Moosach.mp3" Name="Moosach">Moosach</Station>
+      <Station Position="0.0" Filename="Fasanerie.mp3" Name="Fasanerie">Fasanerie</Station>
+      <Station Position="0.0" Filename="Feldmoching (Freising-Flughafen).mp3" Name="Feldmoching">Feldmoching</Station>
+      <Station Position="0.0" Filename="Oberschleißheim.mp3" Name="Oberschleißheim">Oberschleißheim</Station>
+      <Station Position="0.0" Filename="Unterschleißheim.mp3" Name="Unterschleißheim">Unterschleißheim</Station>
+      <Station Position="0.0" Filename="Lohhof.mp3" Name="Lohhof">Lohhof</Station>
+      <Station Position="0.0" Filename="Eching.mp3" Name="Eching">Eching</Station>
+      <Station Position="0.0" Filename="Neufahrn.mp3" Name="Neufahrn">Neufahrn</Station>
+      <Station Position="0.0" Filename="Pulling.mp3" Name="Pulling">Pulling</Station>
+      <Station Position="0.0" Filename="Freising.mp3" Name="Freising">Freising</Station>
+    </Track>
+    <Track Route="Neufahrn - Flughafen München">
+      <Station Position="0.0" Filename="Besucherpark (Flughafen).mp3" Name="Flughafen Besucherpark">Flughafen Besucherpark</Station>
+      <Station Position="0.0" Filename="Flughafen.mp3" Name="Flughafen München">Flughafen München</Station>
+    </Track>
+    <Track Route="Neufahrn - Freising">
+      <Station Position="0.0" Filename="Pulling.mp3" Name="Pulling">Pulling</Station>
+      <Station Position="0.0" Filename="Freising.mp3" Name="Freising">Freising</Station>
+    </Track>
+    <Track Route="Flughafen München - Ostbahnhof">
+      <Station Position="0.0" Filename="Besucherpark (München).mp3" Name="Flughafen Besucherpark">Flughafen Besucherpark</Station>
+      <Station Position="0.0" Filename="Neufahrn (Flughafen-München).mp3" Name="Neufahrn">Neufahrn</Station>
+      <Station Position="0.0" Filename="Eching.mp3" Name="Eching">Eching</Station>
+      <Station Position="0.0" Filename="Lohhof.mp3" Name="Lohhof">Lohhof</Station>
+      <Station Position="0.0" Filename="Unterschleißheim.mp3" Name="Unterschleißheim">Unterschleißheim</Station>
+      <Station Position="0.0" Filename="Oberschleißheim.mp3" Name="Oberschleißheim">Oberschleißheim</Station>
+      <Station Position="0.0" Filename="Feldmoching (Flughafen-München).mp3" Name="Feldmoching">Feldmoching</Station>
+      <Station Position="0.0" Filename="Fasanerie.mp3" Name="Fasanerie">Fasanerie</Station>
+      <Station Position="0.0" Filename="Moosach.mp3" Name="Moosach">Moosach</Station>
+      <Station Position="0.0" Filename="Laim (Richtung München).mp3" Name="Laim">Laim</Station>
+      <Station Position="0.0" Filename="Donnersbergerbrücke.mp3" Name="Donnersberger Brücke">Donnersberger Brücke</Station>
+      <Station Position="0.0" Filename="Hackerbrücke.mp3" Name="Hackerbrücke">Hackerbrücke</Station>
+      <Station Position="0.0" Filename="Hauptbahnhof.mp3" Name="Hauptbahnhof">Hauptbahnhof DB</Station>
+      <Station Position="0.0" Filename="Karlsplatz (Stachus).mp3" Name="Karlsplatz">Karlsplatz-Stachus</Station>
+      <Station Position="0.0" Filename="Marienplatz.mp3" Name="Marienplatz">Marienplatz</Station>
+      <Station Position="0.0" Filename="Isartor.mp3" Name="Isartor">Isartor</Station>
+      <Station Position="0.0" Filename="Rosenheimer Platz.mp3" Name="Rosenheimer Platz">Rosenheimer Platz</Station>
+      <Station Position="0.0" Filename="Ostbahnhof.mp3" Name="Ostbahnhof">Ostbahnhof DB</Station>
+    </Track>
+    <Track Route="Freising - Ostbahnhof">
+      <Station Position="0.0" Filename="Pulling.mp3" Name="Pulling">Pulling</Station>
+      <Station Position="0.0" Filename="Neufahrn (Freising-München).mp3" Name="Neufahrn">Neufahrn</Station>
+      <Station Position="0.0" Filename="Eching.mp3" Name="Eching">Eching</Station>
+      <Station Position="0.0" Filename="Lohhof.mp3" Name="Lohhof">Lohhof</Station>
+      <Station Position="0.0" Filename="Unterschleißheim.mp3" Name="Unterschleißheim">Unterschleißheim</Station>
+      <Station Position="0.0" Filename="Oberschleißheim.mp3" Name="Oberschleißheim">Oberschleißheim</Station>
+      <Station Position="0.0" Filename="Feldmoching (Freising-München).mp3" Name="Feldmoching">Feldmoching</Station>
+      <Station Position="0.0" Filename="Fasanerie.mp3" Name="Fasanerie">Fasanerie</Station>
+      <Station Position="0.0" Filename="Moosach.mp3" Name="Moosach">Moosach</Station>
+      <Station Position="0.0" Filename="Laim (Richtung München).mp3" Name="Laim">Laim</Station>
+      <Station Position="0.0" Filename="Donnersbergerbrücke.mp3" Name="Donnersberger Brücke">Donnersberger Brücke</Station>
+      <Station Position="0.0" Filename="Hackerbrücke.mp3" Name="Hackerbrücke">Hackerbrücke</Station>
+      <Station Position="0.0" Filename="Hauptbahnhof.mp3" Name="Hauptbahnhof">Hauptbahnhof DB</Station>
+      <Station Position="0.0" Filename="Karlsplatz (Stachus).mp3" Name="Karlsplatz">Karlsplatz-Stachus</Station>
+      <Station Position="0.0" Filename="Marienplatz.mp3" Name="Marienplatz">Marienplatz</Station>
+      <Station Position="0.0" Filename="Isartor.mp3" Name="Isartor">Isartor</Station>
+      <Station Position="0.0" Filename="Rosenheimer Platz.mp3" Name="Rosenheimer Platz">Rosenheimer Platz</Station>
+      <Station Position="0.0" Filename="Ostbahnhof.mp3" Name="Ostbahnhof">Ostbahnhof DB</Station>
+    </Track>
+    <Track Route="Neufahrn - Ostbahnhof (vom Flughafen)">
+      <Station Position="0.0" Filename="Besucherpark (München).mp3" Name="Flughafen Besucherpark">Flughafen Besucherpark</Station>
+      <Station Position="0.0" Filename="Neufahrn (Flughafen-München).mp3" Name="Neufahrn">Neufahrn</Station>
+      <Station Position="0.0" Filename="Eching.mp3" Name="Eching">Eching</Station>
+      <Station Position="0.0" Filename="Lohhof.mp3" Name="Lohhof">Lohhof</Station>
+      <Station Position="0.0" Filename="Unterschleißheim.mp3" Name="Unterschleißheim">Unterschleißheim</Station>
+      <Station Position="0.0" Filename="Oberschleißheim.mp3" Name="Oberschleißheim">Oberschleißheim</Station>
+      <Station Position="0.0" Filename="Feldmoching (Flughafen-München).mp3" Name="Feldmoching">Feldmoching</Station>
+      <Station Position="0.0" Filename="Fasanerie.mp3" Name="Fasanerie">Fasanerie</Station>
+      <Station Position="0.0" Filename="Moosach.mp3" Name="Moosach">Moosach</Station>
+      <Station Position="0.0" Filename="Laim (Richtung München).mp3" Name="Laim">Laim</Station>
+      <Station Position="0.0" Filename="Donnersbergerbrücke.mp3" Name="Donnersberger Brücke">Donnersberger Brücke</Station>
+      <Station Position="0.0" Filename="Hackerbrücke.mp3" Name="Hackerbrücke">Hackerbrücke</Station>
+      <Station Position="0.0" Filename="Hauptbahnhof.mp3" Name="Hauptbahnhof">Hauptbahnhof DB</Station>
+      <Station Position="0.0" Filename="Karlsplatz (Stachus).mp3" Name="Karlsplatz">Karlsplatz-Stachus</Station>
+      <Station Position="0.0" Filename="Marienplatz.mp3" Name="Marienplatz">Marienplatz</Station>
+      <Station Position="0.0" Filename="Isartor.mp3" Name="Isartor">Isartor</Station>
+      <Station Position="0.0" Filename="Rosenheimer Platz.mp3" Name="Rosenheimer Platz">Rosenheimer Platz</Station>
+      <Station Position="0.0" Filename="Ostbahnhof.mp3" Name="Ostbahnhof">Ostbahnhof DB</Station>
+    </Track>
+    <Track Route="Neufahrn - Ostbahnhof (von Freising)">
+      <Station Position="0.0" Filename="Pulling.mp3" Name="Pulling">Pulling</Station>
+      <Station Position="0.0" Filename="Neufahrn (Freising-München).mp3" Name="Neufahrn">Neufahrn</Station>
+      <Station Position="0.0" Filename="Eching.mp3" Name="Eching">Eching</Station>
+      <Station Position="0.0" Filename="Lohhof.mp3" Name="Lohhof">Lohhof</Station>
+      <Station Position="0.0" Filename="Unterschleißheim.mp3" Name="Unterschleißheim">Unterschleißheim</Station>
+      <Station Position="0.0" Filename="Oberschleißheim.mp3" Name="Oberschleißheim">Oberschleißheim</Station>
+      <Station Position="0.0" Filename="Feldmoching (Freising-München).mp3" Name="Feldmoching">Feldmoching</Station>
+      <Station Position="0.0" Filename="Fasanerie.mp3" Name="Fasanerie">Fasanerie</Station>
+      <Station Position="0.0" Filename="Moosach.mp3" Name="Moosach">Moosach</Station>
+      <Station Position="0.0" Filename="Laim (Richtung München).mp3" Name="Laim">Laim</Station>
+      <Station Position="0.0" Filename="Donnersbergerbrücke.mp3" Name="Donnersberger Brücke">Donnersberger Brücke</Station>
+      <Station Position="0.0" Filename="Hackerbrücke.mp3" Name="Hackerbrücke">Hackerbrücke</Station>
+      <Station Position="0.0" Filename="Hauptbahnhof.mp3" Name="Hauptbahnhof">Hauptbahnhof DB</Station>
+      <Station Position="0.0" Filename="Karlsplatz (Stachus).mp3" Name="Karlsplatz">Karlsplatz-Stachus</Station>
+      <Station Position="0.0" Filename="Marienplatz.mp3" Name="Marienplatz">Marienplatz</Station>
+      <Station Position="0.0" Filename="Isartor.mp3" Name="Isartor">Isartor</Station>
+      <Station Position="0.0" Filename="Rosenheimer Platz.mp3" Name="Rosenheimer Platz">Rosenheimer Platz</Station>
+      <Station Position="0.0" Filename="Ostbahnhof.mp3" Name="Ostbahnhof">Ostbahnhof DB</Station>
+    </Track>
+  </Line>
+
   <Line Name="München S2" Directory="S-Bahn München\S2">
     <Track Route="München Obermenzing - Petershausen">
       <Station Position="7.6" Filename="Obermenzing.mp3" Name="Obermenzing Hp">Obermenzing</Station>
