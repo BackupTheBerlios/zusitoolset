@@ -22,7 +22,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, cCiaBuffer, WSocket, ExtCtrls, uTimetables,
   LibXmlParser, LibXmlComps, ComCtrls, fisHotKey, Bass, IniFiles, XPMan,
-  LCDScreen;
+  LCDScreen, Math;
 
 type
   TMain = class(TForm)
@@ -53,6 +53,7 @@ type
     Label4: TLabel;
     Label6: TLabel;
     LcdAnzeige: TLCDScreen;
+    Button1: TButton;
     procedure CliSocketBufferReceived(Sender: TObject);
     procedure CliSocketDataAvailable(Sender: TObject; Error: Word);
     procedure CliSocketSessionClosed(Sender: TObject; Error: Word);
@@ -74,10 +75,12 @@ type
     procedure cbStationsChange(Sender: TObject);
     procedure cbDisplayChange(Sender: TObject);
     procedure cbFolderChange(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     IniFile: TIniFile;
     Lines: TLines;
     Position: TPosition;
+    NextKm: String;
     XmlFormat: TFormatSettings;
     Channel: DWord;
     UseSound: Boolean;
@@ -303,6 +306,7 @@ var
   Buffer: String;
   I: Integer;
   FSingle: Single;
+  AktKm: String;
   FArray: Array[1..4] of Byte;
 begin
   // Mit dieser Prozedur werden die eingehenden Daten ausgegeben. Zunächst wird
@@ -321,7 +325,18 @@ begin
     // Array in Single umwandeln
     FSingle := PSingle(@FArray)^;
     // Singlewert ausgeben
-    paKm.Caption := Format('%8.2f km', [FSingle / 1000]);
+    paKm.Caption := Format('%1.2f km', [FSingle / 1000]);
+
+    AktKm := Format('%1.1f' ,[(FSingle / 1000)]);
+    Caption := AktKm + 'A, N:' + NextKm;
+
+    If AktKm = NextKm then
+    begin
+      cHotKeyHotKey(self);
+      Button1Click(self);
+      cbStationsChange(self);
+    end;
+    
     // Gerade verwendete Daten aus dem Puffer löschen
     Delete(Buffer,1,5);
   end;
@@ -502,7 +517,7 @@ end;
 
 procedure TMain.btnPlayClick(Sender: TObject);
 var
-  I, J: Integer;
+  I: Integer;
   S: String;
 begin
 
@@ -576,6 +591,25 @@ begin
       then cbLines.Items.Add(Lines[I].Name);
 
 
+end;
+
+procedure TMain.Button1Click(Sender: TObject);
+var
+  I: Integer;
+
+begin
+  For I := 0 to Lines.Count -1 do
+  begin
+    If (Lines[I].Name = cbLines.Text) and (Lines[I].Folder = cbFolder.Text) then
+    begin
+      NextKm := Format('%1.1f',[Lines[I].Tracks[cbTracks.ItemIndex].
+        Stations[cbStations.ItemIndex].Position]);
+
+caption := nextkm;
+
+      Break;
+    end;
+  end;
 end;
 
 end.

@@ -1,6 +1,6 @@
 object Main: TMain
-  Left = 206
-  Top = 416
+  Left = 428
+  Top = 482
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'IBIS-Ger'#228't'
@@ -241,6 +241,15 @@ object Main: TMain
     Sorted = True
     TabOrder = 11
     OnChange = cbFolderChange
+  end
+  object Button1: TButton
+    Left = 12
+    Top = 112
+    Width = 75
+    Height = 25
+    Caption = 'Button1'
+    TabOrder = 12
+    OnClick = Button1Click
   end
   object CliSocket: TWSocket
     LineMode = False
