@@ -135,6 +135,7 @@ object Main: TMain
     Height = 21
     Style = csDropDownList
     ItemHeight = 13
+    Sorted = True
     TabOrder = 4
     OnChange = cbLinesChange
   end
@@ -201,6 +202,7 @@ object Main: TMain
     Height = 21
     Style = csDropDownList
     ItemHeight = 13
+    Sorted = True
     TabOrder = 11
     OnChange = cbFolderChange
   end

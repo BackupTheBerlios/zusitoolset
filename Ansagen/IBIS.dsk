@@ -1,47 +1,48 @@
 [Closed Files]
-File_0=SourceModule,'c:\coding\delphi7\Lib\Common\WaveMix.pas',0,1,1,44,5,0,0
-File_1=SourceModule,'C:\WINDOWS\profiles\Daniel\Desktop\delphi\bass21\Delphi\3dTest\DTMain.pas',0,1,1,1,1,1,1
-File_2=SourceModule,'C:\WINDOWS\profiles\Daniel\Desktop\delphi\bass21\Delphi\BassTest\BTMain.pas',0,1,1,1,1,0,1
-File_3=SourceModule,'C:\WINDOWS\profiles\Daniel\Desktop\delphi\aoSource\Source\UnitMain.pas',0,1,1,1,1,1,0
-File_4=SourceModule,'C:\Coding\Delphi7\Projects\WinTop\uMain.pas',0,1,233,16,241,0,0
-File_5=SourceModule,'C:\Coding\Delphi\Projects\GoogleTranslator2\uSettings.pas',0,1,254,1,260,0,0
-File_6=SourceModule,'C:\Coding\Delphi\Lib\common\TopWnd.pas',0,1,67,70,73,0,0
-File_7=SourceModule,'C:\Coding\Delphi\Projects\ClassName\uWndGetClassName.pas',0,1,41,35,48,1,0
-File_8=SourceModule,'C:\WINDOWS\Profiles\Danny243\Desktop\VerySimpleExample\Main.pas',0,1,80,1,89,1,0
+File_0=SourceModule,'c:\coding\delphi7\Lib\ICS\WSocket.pas',0,1,1527,1,1543,0,0
+File_1=SourceModule,'c:\coding\delphi7\lib\xml\LibXmlParser.pas',0,1,1,1,2654,0,0
+File_2=SourceModule,'c:\coding\delphi7\Lib\Common\WaveMix.pas',0,1,1,44,5,0,0
+File_3=SourceModule,'C:\WINDOWS\profiles\Daniel\Desktop\delphi\bass21\Delphi\3dTest\DTMain.pas',0,1,1,1,1,1,1
+File_4=SourceModule,'C:\WINDOWS\profiles\Daniel\Desktop\delphi\bass21\Delphi\BassTest\BTMain.pas',0,1,1,1,1,0,1
+File_5=SourceModule,'C:\WINDOWS\profiles\Daniel\Desktop\delphi\aoSource\Source\UnitMain.pas',0,1,1,1,1,1,0
+File_6=SourceModule,'C:\Coding\Delphi7\Projects\WinTop\uMain.pas',0,1,233,16,241,0,0
+File_7=SourceModule,'C:\Coding\Delphi\Projects\GoogleTranslator2\uSettings.pas',0,1,254,1,260,0,0
+File_8=SourceModule,'C:\Coding\Delphi\Lib\common\TopWnd.pas',0,1,67,70,73,0,0
+File_9=SourceModule,'C:\Coding\Delphi\Projects\ClassName\uWndGetClassName.pas',0,1,41,35,48,1,0
 
 [Modules]
-Module0=C:\WINDOWS\profiles\Daniel\Desktop\delphi\bass21\Delphi\DspTest\DTMain.pas
-Module1=c:\coding\delphi7\lib\xml\LibXmlParser.pas
-Module2=c:\coding\delphi7\Lib\ICS\WSocket.pas
+Module0=C:\Coding\Delphi7\Projects\Toolset\Ansagen\uMain.pas
+Module1=C:\Coding\Delphi7\Projects\Toolset\Ansagen\uTimetables.pas
+Module2=C:\Coding\Delphi7\Projects\Toolset\Ansagen\uUtilities.pas
 Count=3
 EditWindowCount=1
 
-[C:\WINDOWS\profiles\Daniel\Desktop\delphi\bass21\Delphi\DspTest\DTMain.pas]
+[C:\Coding\Delphi7\Projects\Toolset\Ansagen\uMain.pas]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[c:\coding\delphi7\lib\xml\LibXmlParser.pas]
+[C:\Coding\Delphi7\Projects\Toolset\Ansagen\uTimetables.pas]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[c:\coding\delphi7\Lib\ICS\WSocket.pas]
+[C:\Coding\Delphi7\Projects\Toolset\Ansagen\uUtilities.pas]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[C:\Coding\Delphi7\Projects\ProjectGroup1.bpg]
+[C:\Coding\Delphi7\Projects\Toolset\Ansagen\ProjectGroup1.bpg]
 FormState=0
 FormOnTop=0
 
-[C:\Coding\Delphi7\Projects\TCP\IBIS\IBIS.dpr]
+[C:\Coding\Delphi7\Projects\Toolset\Ansagen\IBIS.dpr]
 FormState=0
 FormOnTop=0
 
 [EditWindow0]
 ViewCount=3
-CurrentView=1
+CurrentView=0
 View0=0
 View1=1
 View2=2
@@ -49,8 +50,8 @@ MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
 State=0
-Left=414
-Top=288
+Left=372
+Top=489
 Width=868
 Height=646
 MaxLeft=-1
@@ -61,27 +62,27 @@ LeftPanelSize=0
 RightPanelSize=0
 BottomPanelSize=0
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=00000400010000000B0000004D65737361676556696577000000000000000000000000000000000001000000000000000000000000FFFFFFFF
+BottomPanelData=00000400010000000B0000004D6573736167655669657700000000000000000000000000000000000100000000000000000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
-Module=c:\coding\delphi7\Lib\ICS\WSocket.pas
-CursorX=1
-CursorY=1543
-TopLine=1527
+Module=C:\Coding\Delphi7\Projects\Toolset\Ansagen\uMain.pas
+CursorX=75
+CursorY=508
+TopLine=493
 LeftCol=1
 
 [View1]
-Module=C:\WINDOWS\profiles\Daniel\Desktop\delphi\bass21\Delphi\DspTest\DTMain.pas
-CursorX=27
-CursorY=191
-TopLine=161
+Module=C:\Coding\Delphi7\Projects\Toolset\Ansagen\uTimetables.pas
+CursorX=20
+CursorY=57
+TopLine=136
 LeftCol=1
 
 [View2]
-Module=c:\coding\delphi7\lib\xml\LibXmlParser.pas
-CursorX=1
-CursorY=2654
-TopLine=2638
+Module=C:\Coding\Delphi7\Projects\Toolset\Ansagen\uUtilities.pas
+CursorX=23
+CursorY=5
+TopLine=1
 LeftCol=1
 
 [Watches]
@@ -203,7 +204,7 @@ LRDockWidth=190
 Dockable=1
 SplitPos=85
 ArrangeBy=Name
-SelectedItem=
+SelectedItem=OnChange
 ExpandedItems=
 HiddenCategories=
 
