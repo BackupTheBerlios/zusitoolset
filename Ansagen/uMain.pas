@@ -22,7 +22,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, cCiaBuffer, WSocket, ExtCtrls, uTimetables,
   LibXmlParser, LibXmlComps, ComCtrls, fisHotKey, uSound, IniFiles, XPMan,
-  LCDScreen, Math;
+  LCDScreen, Math, IntList;
 
 type
   TMain = class(TForm)
@@ -53,6 +53,9 @@ type
     Label4: TLabel;
     Label6: TLabel;
     Button1: TButton;
+    ListBox1: TListBox;
+    Button4: TButton;
+    Button2: TButton;
     procedure CliSocketBufferReceived(Sender: TObject);
     procedure CliSocketDataAvailable(Sender: TObject; Error: Word);
     procedure CliSocketSessionClosed(Sender: TObject; Error: Word);
@@ -75,6 +78,7 @@ type
     procedure cbDisplayChange(Sender: TObject);
     procedure cbFolderChange(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
     IniFile: TIniFile;
     Lines: TLines;
@@ -83,6 +87,7 @@ type
     XmlFormat: TFormatSettings;
     Channel: DWord;
     UseSound: Boolean;
+
     procedure SendData(Data: String);
     procedure GetNeededData;
     procedure ParseInput(Input: String);
@@ -95,7 +100,7 @@ var
   Main: TMain;
 
 resourcestring
-  ClientName = 'IBIS-Gerät';
+  ClientName = 'IBIS/FIS-Server';
 
 implementation
 
@@ -163,7 +168,7 @@ begin
     btnConnect.Caption := 'Trennen';
     SendData(Chr($00)+Chr($01)+        // CMD_HELLO
              Chr($01)+                 // PROTOKOLLVERSION 1
-             Chr($02)+                 // TYP FAHRPULT
+             Chr($06)+                 // TYP FIS
              Chr(Length(ClientName))+  // STRING-LÄNGE
              ClientName);
   end;
@@ -194,8 +199,15 @@ begin
   // Mit dem Befehl GET_NEEDED_DATA die benötigen IDs anfordern. Hier ist dies
   // nur 85 (55 hex) für den Kilometerstand.
   SendData(Chr($00) + Chr($03)+ // NEEDED_DATA
-           Chr($00) + Chr($0A)+ // Datensatz
-           Chr($55));           // KM
+           Chr($00) + Chr($0A)+ // Datensatz Führerstand
+           Chr($55) + Chr($56));// KM-Stand und Türen
+  SendData(Chr($00) + Chr($03)+ // NEEDED_DATA
+           Chr($00) + Chr($1A)+ // Datensatz FIS
+           Chr($01) + Chr($02)+ Chr($03)+ Chr($04)+ Chr($05)+ Chr($06)+
+           Chr($07) + Chr($08)+ Chr($09)+ Chr($0A)+ Chr($0B)+ Chr($10)+
+           Chr($11) + Chr($12)+ Chr($13)+ Chr($17)+ Chr($18)+ Chr($19)+
+           Chr($1A) + Chr($20)+ Chr($21)+ Chr($22)+ Chr($23)+ Chr($24)+
+           Chr($25));           // FIS-IDs             
   // Und den Befehl nochmal mit Datensatz 00 00 als Kennung für den letzten
   // Befehl.
   SendData(Chr($00) + Chr($03) + Chr($00) + Chr($00)); // Letzter Befehl
@@ -590,7 +602,6 @@ begin
     If (Lines[I].Folder = cbFolder.Text)
       then cbLines.Items.Add(Lines[I].Name);
 
-
 end;
 
 procedure TMain.Button1Click(Sender: TObject);
@@ -610,6 +621,66 @@ caption := nextkm;
       Break;
     end;
   end;
+end;
+
+procedure TMain.Button4Click(Sender: TObject);
+var
+  I, J, K, L: Integer;
+  slNetz: TStringList;
+  slStartStations: TStringList;
+  slZielStations : TStringList;
+begin
+  ListBox1.Clear;
+  slNetz := TStringList.Create;
+  slStartStations := TStringList.Create;
+  slZielStations  := TStringList.Create;
+
+  For I := 0 to Lines.Count -1 do
+    if slNetz.IndexOf(Lines[I].Folder) = (-1) then
+      slNetz.Add(Lines[I].Folder);
+
+  For K := 0 to slNetz.Count -1 do
+  begin
+    ListBox1.Items.Add('NETZ: '+slNetz[K]);
+
+    For I := 0 to Lines.Count -1 do
+      If Lines[I].Folder = slNetz[K] then
+    begin
+      ListBox1.Items.Add('LINE: '+Lines[I].Name);
+      slStartStations.Clear;
+      For J := 0 to Lines[I].Tracks.Count -1 do
+      begin
+        If Lines[I].Tracks[J].Stations.Count > 0 then
+          If slStartStations.IndexOf(Lines[I].Tracks[J].Stations[0].Display) = (-1) then
+            slStartStations.Add(Lines[I].Tracks[J].Stations[0].Display);
+      end;
+
+      For L := 0 to slStartStations.Count -1 do
+      begin
+        ListBox1.Items.Add('START: '+slStartStations[L]);
+        slZielStations.Clear;
+        For J := 0 to Lines[I].Tracks.Count -1 do
+        If Lines[I].Tracks[J].Stations.Count > 0 then
+        begin
+          If Lines[I].Tracks[J].Stations[0].Display = slStartStations[L] then
+          begin
+            If slZielStations.IndexOf(Lines[I].Tracks[J].Stations[Lines[I].Tracks[J].Stations.Count -1].Display) = (-1) then
+            begin
+              slZielStations.Add(Lines[I].Tracks[J].Stations[Lines[I].Tracks[J].Stations.Count -1].Display);
+              ListBox1.Items.Add('ZIEL: '+Lines[I].Tracks[J].Stations[Lines[I].Tracks[J].Stations.Count -1].Display);
+            end;
+          end;
+        end;
+        ListBox1.Items.Add('NO_MORE_ZIEL');
+      end;
+      ListBox1.Items.Add('NO_MORE_START');
+    end;
+    ListBox1.Items.Add('NO_MORE_NETZ');
+  end;
+  ListBox1.Items.Add('NO_MORE_DATA');
+  slNetz.Free;
+  slStartStations.Free;
+  slZielStations.Free;
 end;
 
 end.
