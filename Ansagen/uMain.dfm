@@ -53,42 +53,6 @@ object Main: TMain
     Height = 13
     Caption = 'Betriebsstelle mit Bezeichnung f'#252'r Anzeiger'
   end
-  object LcdAnzeige: TLCDScreen
-    Left = 8
-    Top = 8
-    Width = 401
-    Height = 71
-    AnimationDelay = 251
-    AnimationEnabled = False
-    AnimationRepeating = False
-    BitmapCopyMode = cmNotTransparent
-    BitmapAnimMode = amDynamic
-    BitmapXOffset = 0
-    BitmapYOffset = 0
-    BorderSpace = 3
-    BorderStyle = bsLowered
-    Color = clBlack
-    DisplayMode = dmText
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clLime
-    Font.Height = -9
-    Font.Name = 'Small Fonts'
-    Font.Style = []
-    Intensity = 127
-    Lines.Strings = (
-      'N'#196'CHSTE HALTESTELLE'
-      '')
-    LinesAnimMode = amDynamic
-    LinesXOffset = 0
-    LinesYOffset = 0
-    PixelHeight = 2
-    PixelOff = 16384
-    PixelShape = psSquare
-    PixelSize = pix2x2
-    PixelSpacing = 1
-    PixelWidth = 2
-    SpecialEffects = []
-  end
   object GroupBox1: TGroupBox
     Left = 16
     Top = 324
@@ -247,7 +211,7 @@ object Main: TMain
     Top = 112
     Width = 75
     Height = 25
-    Caption = 'Button1'
+    Caption = 'NextKM'
     TabOrder = 12
     OnClick = Button1Click
   end

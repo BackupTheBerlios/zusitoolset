@@ -52,7 +52,6 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label6: TLabel;
-    LcdAnzeige: TLCDScreen;
     Button1: TButton;
     procedure CliSocketBufferReceived(Sender: TObject);
     procedure CliSocketDataAvailable(Sender: TObject; Error: Word);
@@ -571,7 +570,6 @@ end;
 procedure TMain.cbStationsChange(Sender: TObject);
 begin
   cbDisplay.ItemIndex := cbStations.ItemIndex;
-  LcdAnzeige.Lines[1] := UpperCase(cbDisplay.Text);
 end;
 
 procedure TMain.cbDisplayChange(Sender: TObject);
