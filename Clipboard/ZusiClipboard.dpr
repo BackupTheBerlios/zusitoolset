@@ -39,7 +39,7 @@ begin
   end;
 
   If ZusiPath[Length(ZusiPath)] <> '\' then ZusiPath := ZusiPath + '\';
-  If Pos(ZusiPath, ParamStr(1)) <> 1 then
+  If Pos(LowerCase(ZusiPath), LowerCase(ParamStr(1))) <> 1 then
   begin
     MessageBox(0,
       'Die ausgewählte Datei liegt nicht im Zusi-Verzeichnis.',
