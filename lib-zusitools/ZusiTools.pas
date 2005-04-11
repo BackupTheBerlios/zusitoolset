@@ -2,7 +2,7 @@ unit ZusiTools;
 
 interface
 
-Uses Windows, SysUtils, Registry;
+Uses Classes, Windows, SysUtils, Registry;
 
 function GetZusiDir: String;
 function IsZusiLoaded: Boolean;
