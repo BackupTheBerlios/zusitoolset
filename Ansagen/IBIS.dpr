@@ -26,6 +26,7 @@ uses
 
 begin
   Application.Initialize;
+  Application.Title := 'IBIS';
   Application.CreateForm(TMain, Main);
   Application.Run;
 end.

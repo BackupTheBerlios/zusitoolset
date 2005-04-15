@@ -22,7 +22,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, cCiaBuffer, WSocket, ExtCtrls, uTimetables,
   LibXmlParser, LibXmlComps, ComCtrls, fisHotKey, uSound, IniFiles, XPMan,
-  LCDScreen, Math, IntList;
+  Math, IntList, LCDScreen, Buttons;
 
 type
   TMain = class(TForm)
@@ -44,7 +44,6 @@ type
     btnPlay: TButton;
     cHotKey: TfisHotKey;
     HkHotKey: THotKey;
-    Button3: TButton;
     cbDisplay: TComboBox;
     cbFolder: TComboBox;
     Label1: TLabel;
@@ -52,10 +51,16 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label6: TLabel;
-    Button1: TButton;
+    btnNextKm: TButton;
     ListBox1: TListBox;
-    Button4: TButton;
-    Button2: TButton;
+    btnParse: TButton;
+    btnLoad: TButton;
+    cLCD: TLCDScreen;
+    Label7: TLabel;
+    btnFestlegen: TSpeedButton;
+    btnApspielen: TSpeedButton;
+    procedure cLCDClick(Sender: TObject);
+    procedure HkHotKeyChange(Sender: TObject);
     procedure CliSocketBufferReceived(Sender: TObject);
     procedure CliSocketDataAvailable(Sender: TObject; Error: Word);
     procedure CliSocketSessionClosed(Sender: TObject; Error: Word);
@@ -71,14 +76,14 @@ type
     procedure cbLinesChange(Sender: TObject);
     procedure cbTracksChange(Sender: TObject);
     procedure btnPlayClick(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
+    procedure btnFestlegenClick(Sender: TObject);
     procedure cHotKeyHotKey(Sender: TObject);
     procedure cXMLContent(Sender: TObject; Content: String);
     procedure cbStationsChange(Sender: TObject);
     procedure cbDisplayChange(Sender: TObject);
     procedure cbFolderChange(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
+    procedure btnNextKmClick(Sender: TObject);
+    procedure btnParseClick(Sender: TObject);
   private
     IniFile: TIniFile;
     Lines: TLines;
@@ -344,7 +349,7 @@ begin
     If AktKm = NextKm then
     begin
       cHotKeyHotKey(self);
-      Button1Click(self);
+      btnNextKmClick(self);
       cbStationsChange(self);
     end;
     
@@ -394,17 +399,28 @@ end;
 
 procedure TMain.FormCreate(Sender: TObject);
 begin
+  Main.ClientHeight := 375;
   If Screen.Fonts.IndexOf('Tahoma') <> (-1) then Font.Name := 'Tahoma';
   Lines := TLines.Create;
   XmlFormat.DecimalSeparator := '.';
   IniFile := TIniFile.Create(ChangeFileExt(Application.ExeName,'.ini'));
+
+  Main.Left := IniFile.ReadInteger('Settings', 'Left', Screen.Width div 2 - Main.Width div 2);
+  Main.Top := IniFile.ReadInteger('Settings', 'Top', Screen.Height div 2 - Main.Height div 2);
+  cHotKey.Key := IniFile.ReadInteger('Settings','HotKey',0);
+  HkHotKey.HotKey := cHotKey.Key;
+  cbOnTop.Checked := IniFile.ReadBool('Settings','HotKey',True);
+  cbOnTopClick(Self);
 
   UseSound := IniFile.ReadBool('Settings','UseSound',True);
   If UseSound then
   begin
     if BASS_GetVersion <> DWORD(MAKELONG(2,1)) then
     begin
-      MessageBox(0, 'BASS version 2.1 was not loaded', 'Incorrect BASS.DLL', 0);
+      MessageBox(0, 'Die Datei IBIS.dll liegt in einer falschen Version vor.'+
+        ' Bitte laden Sie eine aktuelle Version aus dem Internet unter '+
+        'http://zusitoolset.berlios.de herunter', 'Falsche Dateiversion',
+        MB_OK or MB_ICONERROR);
       Application.Terminate;
       Exit;
     end;
@@ -412,15 +428,24 @@ begin
     BASS_SetConfig(BASS_CONFIG_FLOATDSP, 1);
     if not BASS_Init(1, 44100, 0, Handle, nil) then
     begin
-      MessageBox(0, 'Can''t initialize device', 'Error', 0);
+      MessageBox(0, 'Das Audiogerät kann nicht initialisiert werden. Zum '+
+        'Betrieb wird eine Soundkarte benötigt. Sollen nur die Serverdienste '+
+        'verwendet werden, setzen Sie die Variable "UseSound" in der INI-Datei'+
+        ' im Abschnitt [Settings] auf den Wert 0.', 'Kein Audiogerät',
+        MB_OK or MB_ICONERROR);
       Application.Terminate;
       Exit;
     end;
   end;
+  btnScanClick(Self);
 end;
 
 procedure TMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  IniFile.WriteInteger('Settings','HotKey',cHotKey.Key);
+  IniFile.WriteInteger('Settings', 'Left', Main.Left);
+  IniFile.WriteInteger('Settings', 'Top', Main.Top);
+  IniFile.WriteBool('Settings','HotKey',cbOnTop.Checked);
   Lines.Free;
   IniFile.Free;
   Bass_Free;
@@ -545,6 +570,7 @@ begin
         Break;
       end;
     end;
+    If S = '' then Exit;
 
     BASS_StreamFree(Channel);
 
@@ -552,7 +578,11 @@ begin
     if (Channel = 0) then
     begin
       // whatever it is, it ain't playable
-      MessageBox(0, 'Datei nicht gefunden oder falsches Format', 'Fehler', 0);
+      MessageBox(0,
+        PChar(Format('Die Datei %s kann nicht gefunden werden, ist defekt oder'+
+          ' liegt in einem falschen Format vor.',[S])),
+          'Fehler beim Dateizugriff',
+        MB_OK or MB_ICONERROR);
       Exit;
     end;
 
@@ -561,16 +591,19 @@ begin
 
 end;
 
-procedure TMain.Button3Click(Sender: TObject);
+procedure TMain.btnFestlegenClick(Sender: TObject);
 begin
   cHotKey.Key := HkHotKey.HotKey;
+  paKm.SetFocus;
+  btnFestlegen.Enabled := False;
 end;
 
 procedure TMain.cHotKeyHotKey(Sender: TObject);
 begin
-  btnPlayClick(Self);
   cbStations.ItemIndex := cbStations.ItemIndex + 1;
   cbDisplay.ItemIndex := cbStations.ItemIndex;
+  cLCD.Lines[0] := cbDisplay.Text;
+  btnPlayClick(Self);
 end;
 
 procedure TMain.cXMLContent(Sender: TObject; Content: String);
@@ -582,11 +615,13 @@ end;
 procedure TMain.cbStationsChange(Sender: TObject);
 begin
   cbDisplay.ItemIndex := cbStations.ItemIndex;
+  cLCD.Lines[0] := cbDisplay.Text;
 end;
 
 procedure TMain.cbDisplayChange(Sender: TObject);
 begin
   cbStations.ItemIndex := cbDisplay.ItemIndex;
+  cLCD.Lines[0] := cbDisplay.Text;
 end;
 
 procedure TMain.cbFolderChange(Sender: TObject);
@@ -604,7 +639,7 @@ begin
 
 end;
 
-procedure TMain.Button1Click(Sender: TObject);
+procedure TMain.btnNextKmClick(Sender: TObject);
 var
   I: Integer;
 
@@ -623,7 +658,7 @@ caption := nextkm;
   end;
 end;
 
-procedure TMain.Button4Click(Sender: TObject);
+procedure TMain.btnParseClick(Sender: TObject);
 var
   I, J, K, L: Integer;
   slNetz: TStringList;
@@ -681,6 +716,19 @@ begin
   slNetz.Free;
   slStartStations.Free;
   slZielStations.Free;
+end;
+
+procedure TMain.HkHotKeyChange(Sender: TObject);
+begin
+  btnFestlegen.Enabled := True;
+end;
+
+procedure TMain.cLCDClick(Sender: TObject);
+begin
+  If Main.ClientHeight = 62
+    then Main.ClientHeight := 375
+      else Main.ClientHeight := 62;
+
 end;
 
 end.
