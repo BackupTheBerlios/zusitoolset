@@ -11,6 +11,7 @@ var
   WndZusi: HWND;
   Rect: TRect;
   InfoWndSize: TPoint;
+  InfoWndPos: TPoint;
   ZusiPath: String;
   ZusiExe: String;
   SleepTime: Integer;
@@ -35,21 +36,24 @@ begin
 
   SleepTime := Ini.ValueInteger('Sleep',1000);
 
-  Ini.Section := 'Info';
-  InfoWndSize.X := Ini.ValueInteger('Width',92);
-  InfoWndSize.Y := Ini.ValueInteger('Height',123);
-
   WndInfo := FindWindow('TFormFahrtInfo',nil);
   If WndInfo = 0 then
   begin
-    SleepEx(1000, True);
-
+    SleepEx(SleepTime, True);
     Repeat
       WndInfo := FindWindow('TFormFahrtInfo',nil);
       WndZusi := FindWindow('TFormZusiD3DApplication',nil);
     Until (WndInfo <> 0) or (WndZusi = 0);
   end;
   GetWindowRect(WndInfo, Rect);
-  SetWindowPos(WndInfo,0,Rect.Left, Rect.Top, InfoWndSize.X, InfoWndSize.Y, 0);
+
+  Ini.Section := 'Info';
+  InfoWndSize.X := Ini.ValueInteger('Width',92);
+  InfoWndSize.Y := Ini.ValueInteger('Height',123);
+  InfoWndPos.X := Ini.ValueInteger('PosX', Rect.Left);
+  InfoWndPos.Y := Ini.ValueInteger('PosY', Rect.Top);
+
+  SetWindowPos(WndInfo, 0, InfoWndPos.X, InfoWndPos.Y,
+    InfoWndSize.X, InfoWndSize.Y, 0);
   SetWindowText(WndInfo, 'Info');
 end.
