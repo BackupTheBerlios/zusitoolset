@@ -2,13 +2,14 @@ unit ZusiTools;
 
 interface
 
-Uses Classes, Windows, SysUtils, Registry;
+Uses Windows, SysUtils, Registry, Classes;
 
 function GetZusiDir: String;
 function IsZusiLoaded: Boolean;
 function SendKeyToZusi(Key: Integer; Pressed, Release: Boolean): Boolean;
 function ShutdownComputer(Force: Boolean): Boolean;
 procedure FindFiles (aPath, aFindMask: String; aWithSub: Boolean; aResult: tStrings);
+function FarbeRGBToInt(R, G, B: Byte): Integer;
 
 
 implementation
@@ -143,6 +144,13 @@ begin
     RebootParam := EWX_POWEROFF or EWX_FORCE else
       RebootParam := EWX_POWEROFF;
   Result := ExitWindowsEx(RebootParam, 0);
+end;
+
+function FarbeRGBToInt(R, G, B: Byte): Integer;
+var FarbeHex: String;
+begin
+  FarbeHex := IntToHex(B, 2) + IntToHex(G, 2) + IntToHex(R, 2);
+  Result := StrToInt('$' + FarbeHex);
 end;
 
 end.
